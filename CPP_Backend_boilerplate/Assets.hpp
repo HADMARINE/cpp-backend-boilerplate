@@ -1,26 +1,19 @@
 #pragma once
+
+#ifndef ASSETS
+#define ASSETS
+
 #include "stdafx.h"
+#include ""
 
 using namespace std;
 
 class Assets {
 public:
-	static void pauseUntilKeyPressed(char k, string mes) {
-		Logger::Info(mes);
-		fgetc(stdin);
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	static void pauseUntilKeyPressed(char k) {
-		fgetc(stdin);
-		cin.ignore(numeric_limits<streamsize>::max(), k);
-	}
-	static void pauseUntilKeyPressed(string mes) {
-		Logger::Info(mes);
-		fgetc(stdin);
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
-	static void pauseUntilKeyPressed() {
-		fgetc(stdin);
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-	}
+	static void pauseUntilKeyPressed(char, string);
+	static void pauseUntilKeyPressed(char k);
+	static void pauseUntilKeyPressed(string mes);
+	static void pauseUntilKeyPressed(void);
 };
+
+#endif

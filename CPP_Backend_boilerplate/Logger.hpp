@@ -1,6 +1,5 @@
 #pragma once
 #include "stdafx.h"
-#include <time.h>
 
 
 using namespace std;
@@ -13,6 +12,7 @@ enum COLOR {
 
 class Logger {
 public:
+	static bool isUsing;
 	static void RawLogger(string);
 	static void Info(string);
 	static void Error(string, bool showErrorStackByDialogue = false);

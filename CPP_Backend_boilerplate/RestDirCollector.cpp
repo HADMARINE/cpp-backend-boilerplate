@@ -14,7 +14,7 @@ RestDirCollector::~RestDirCollector() {
 	Logger::Debug("RestDirCollector closed. dir : (" + this->dir + ")");
 }
 
-bool RestDirCollector::Mount() {
+bool RestDirCollector::Initialize() {
 
 	if (RestDirCollector::isMounted) {
 		Logger::Error("RestDirCollector has been mounted already!");
@@ -95,7 +95,7 @@ bool RestDirCollector::Mount() {
 		{
 			listener->open().then(
 				[=]() {
-					Logger::Debug("Dir " + currFRDD->location + " mount success");
+					Logger::Debug("MOUNTING: " + currFRDD->location + " ...SUCCESS!");
 				}
 			).wait();
 		}
@@ -108,8 +108,8 @@ bool RestDirCollector::Mount() {
 		//Append listener to Listener list
 		//ListenerList->push_back(&listener);
 		
-		for (unsigned int ci = 0; ci < currFRDD->data->size(); ci++) {
-			listener->support(RestDirCollector::dirData->at(i).method, RestDirCollector::dirData->at(i).func);
+		for (RestDirData curRdd: *currFRDD->data) {
+			listener->support(curRdd.method, curRdd.func);
 		}
 
 		delete currFRDD;//c
@@ -119,28 +119,22 @@ bool RestDirCollector::Mount() {
 
 	RestDirCollector::isMounted = true;
 
-	Logger::Info("Started " + (string)APPLICATION_NAME + " on PORT : " + to_string(PORT));
-
 	delete filteredRestDirData;
 	filteredRestDirData = nullptr;
 	return true;
 }
 
 bool RestDirCollector::Append(method method,
-	const function<void(http_request)>& func) {
+	const function<void(http_request)>& func, const vector<REST_DIR_FLAGS> flags) {
+
 	if (this->isMounted) {
 		Logger::Error("RestDirCollector can not append any routes since mounted! Shutdown RestDirCollector first.");
 		return false;
 	}
 
 	Logger::Debug("APPEND PROCESSED - DIR : " + this->dir);
-	RestDirCollector::dirData->push_back(RestDirData{ method, func, this->dir });
+	RestDirCollector::dirData->push_back(RestDirData{ method, WRAP_FUNC(func, flags, method, this->dir), this->dir });
 	Logger::Debug("APPEND PROCESS COMPLETE");
-	return true;
-}
-
-bool RestDirCollector::Initialize(void) {
-	//RestDirCollector::dirData = new RestDirData;
 	return true;
 }
 
@@ -152,11 +146,66 @@ bool RestDirCollector::Shutdown(void) {
 		listener = nullptr;
 	}
 
-	delete RestDirCollector::ListenerList;
-	RestDirCollector::ListenerList = nullptr;
-
+	RestDirCollector::dirData->clear();
+	RestDirCollector::ListenerList->clear();
 	RestDirCollector::isMounted = false;
 
 	Logger::Debug("SHUTDOWN PROCESS COMPLETE");
 	return true;
+}
+
+
+
+inline function<void(http_request)> WRAP_FUNC(function<void(http_request)> func,
+	vector<REST_DIR_FLAGS> flags, method method, string dir) {
+	if (!ISDEBUGMODE) {
+		return func;
+	}
+
+	string method_string = parse_method_str(method);
+
+	return [=](http_request req) {
+
+		chrono::steady_clock::time_point startTime = chrono::high_resolution_clock::now();
+		func(req);
+		chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
+		chrono::duration<double> elapsedTime = stopTime - startTime;
+		Logger::Debug("REQUEST :  " + method_string + " " + dir + " - "
+			+ to_string(elapsedTime.count() * 1000) + "ms");
+	};
+}
+
+string parse_method_str(method method) {
+	string method_string;
+	if (method == methods::GET) {
+		method_string = "GET";
+	}
+	else if (method == methods::POST) {
+		method_string = "POST";
+	}
+	else if (method == methods::CONNECT) {
+		method_string = "CONNECT";
+	}
+	else if (method == methods::DEL) {
+		method_string = "DELETE";
+	}
+	else if (method == methods::HEAD) {
+		method_string = "HEAD";
+	}
+	else if (method == methods::MERGE) {
+		method_string = "MERGE";
+	}
+	else if (method == methods::OPTIONS) {
+		method_string = "OPTIONS";
+	}
+	else if (method == methods::PATCH) {
+		method_string = "PATCH";
+	}
+	else if (method == methods::PUT) {
+		method_string = "PUT";
+	}
+	else if (method == methods::TRCE) {
+		method_string = "TRACE";
+	}
+	return method_string;
 }

@@ -54,6 +54,12 @@
     <ClCompile Include="Parser.cpp">
       <Filter>src\util</Filter>
     </ClCompile>
+    <ClCompile Include="SocketCollector.cpp">
+      <Filter>src\core\socket</Filter>
+    </ClCompile>
+    <ClCompile Include="Assets.cpp">
+      <Filter>src\util</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -76,6 +82,288 @@
     </ClInclude>
     <ClInclude Include="Assets.hpp">
       <Filter>src\util</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketCollector.hpp">
+      <Filter>src\core\socket</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\base64\base64.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\client.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\close.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\asio.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\asio_ssl.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\chrono.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\connection_hdl.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\cpp11.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\functional.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\md5.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\memory.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\network.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\platforms.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\random.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\regex.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\stdint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\system_error.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\thread.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\time.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\common\type_traits.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\concurrency\basic.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\concurrency\none.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\asio.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\asio_client.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\asio_no_tls.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\asio_no_tls_client.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\boost_config.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\core.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\core_client.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\debug.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\debug_asio.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\debug_asio_no_tls.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\minimal_client.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\config\minimal_server.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\connection.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\connection_base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\endpoint_base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\error.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\extensions\extension.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\extensions\permessage_deflate\disabled.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\extensions\permessage_deflate\enabled.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\frame.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\http\constants.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\http\impl\parser.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\http\impl\request.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\http\impl\response.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\http\parser.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\http\request.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\http\response.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\impl\connection_impl.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\impl\endpoint_impl.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\impl\utilities_impl.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\logger\basic.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\logger\levels.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\logger\stub.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\logger\syslog.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\message_buffer\alloc.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\message_buffer\message.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\message_buffer\pool.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\processors\base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\processors\hybi00.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\processors\hybi07.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\processors\hybi08.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\processors\hybi13.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\processors\processor.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\random\none.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\random\random_device.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\roles\client_endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\roles\server_endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\server.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\sha1\sha1.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\asio\base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\asio\connection.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\asio\endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\asio\security\base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\asio\security\none.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\asio\security\tls.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\base\connection.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\base\endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\debug\base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\debug\connection.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\debug\endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\iostream\base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\iostream\connection.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\iostream\endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\stub\base.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\stub\connection.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\transport\stub\endpoint.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\uri.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\utf8_validator.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\utilities.hpp">
+      <Filter>headers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\version.hpp">
+      <Filter>headers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,8 @@
 #include "Logger.hpp"
 #include <Windows.h>
+#include <time.h>
+
+bool Logger::isUsing = false;
 
 string extSmNum(int num) {
 	char buf[10];
@@ -69,23 +72,31 @@ string Logger::getTimeNow(void) {
 }
 
 void Logger::RawLogger(string mes) {
+	while (Logger::isUsing);
+	Logger::isUsing = true;
 	SetConsoleTextColor("time");
 	cout << Logger::getTimeNow();
 	SetConsoleTextColor();
 	cout << mes << endl;
+	Logger::isUsing = false;
 }
 
 void Logger::Info(string mes) {
+	while (Logger::isUsing);
+	Logger::isUsing = true;
 	SetConsoleTextColor("time");
 	cout << Logger::getTimeNow();
 	SetConsoleTextColor(BLACK, LIGHTGRAY);
 	cout << " INFO ";
 	SetConsoleTextColor();
 	cout << " " << mes << endl;
+	Logger::isUsing = false;
 }
 
 void Logger::Error(string mes,
 	bool showErrorStackByDialogue) {
+	while (Logger::isUsing);
+	Logger::isUsing = true;
 	SetConsoleTextColor("time");
 	cout << Logger::getTimeNow();
 	SetConsoleTextColor("error");
@@ -101,21 +112,31 @@ void Logger::Error(string mes,
 		MessageBox(NULL, LPCWSTR(content),
 			LPCWSTR(application_name), MB_OK);
 	}
+	Logger::isUsing = false;
 }
 
 void Logger::Debug(string mes) {
-	if (ISDEBUGMODE == true) {
-		SetConsoleTextColor("time");
-		cout << Logger::getTimeNow();
-		SetConsoleTextColor("debug");
-		cout << " DEBG ";
-		SetConsoleTextColor("debug_i");
-		cout << " " << mes << endl;
-		SetConsoleTextColor();
+	if (!ISDEBUGMODE) {
+		return;
 	}
+	
+	while (Logger::isUsing);
+	Logger::isUsing = true;
+
+	SetConsoleTextColor("time");
+	cout << Logger::getTimeNow();
+	SetConsoleTextColor("debug");
+	cout << " DEBG ";
+	SetConsoleTextColor("debug_i");
+	cout << " " << mes << endl;
+	SetConsoleTextColor();
+
+	Logger::isUsing = false;
 }
 
 void Logger::ClearWindow() {
+	while (Logger::isUsing);
+	Logger::isUsing = true;
 	SetConsoleTextColor("time");
 
 	COORD topLeft = { 0, 0 };
@@ -133,4 +154,5 @@ void Logger::ClearWindow() {
 	);
 	SetConsoleCursorPosition(console, topLeft);
 	SetConsoleTextColor();
+	Logger::isUsing = false;
 }

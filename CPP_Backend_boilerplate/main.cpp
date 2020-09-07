@@ -1,26 +1,52 @@
 #include "stdafx.h"
 #include "RestDirCollector.hpp"
+#include "SocketCollector.hpp"
 #include "Assets.hpp"
+#include <thread>
 
 using namespace std;
 
-void testApi(http_request req) {
-	req.reply(status_codes::OK, L"HELLO WORLD!");
+bool isRestDirCollectorStarted = false, isSocketCollectorStarted = false;
+
+int initializeRestDirCollector() {
+	if (!RestDirCollector::Initialize()) {
+		Logger::Error("Failed to initialize RestDirCollector", true);
+		return 1;
+	}
+	 
+	Logger::Debug("RestDirCollector STARTED");
+
+	isRestDirCollectorStarted = true;
+
+	while (true);
 }
 
-int main(void) {
-	Logger::Info("Loading CPP Backend API...");
-	RestDirCollector::Initialize();
-	//TestDir::main();
+int initializeSocketCollector() {
+	if (!SocketCollector::Initialize(&isSocketCollectorStarted)) {
+		Logger::Error("Failed to initialize SocketCollector");
+		return -1;
+	}
+}
 
-	RestDirCollector *testRdc = new RestDirCollector("/dd"), *test2Rdc = new RestDirCollector("/hello");
-	testRdc->Append(methods::GET, testApi);
-	test2Rdc->Append(methods::GET, testApi);
-	RestDirCollector::Mount();
-	//system("pause");
-	//test2Rdc->Append(methods::GET, testApi);
-	//test2Rdc->Mount();
+
+
+int main(void) {
+	Logger::Info("Loading Backend API ... (" + (string)APPLICATION_NAME + ")");
+
+	thread RestDirCollectorThread(initializeRestDirCollector);
+	thread SocketCollectorThread(initializeSocketCollector);
+
+	while (!isRestDirCollectorStarted || !isSocketCollectorStarted);
+
+	Logger::Info("Started " + (string)APPLICATION_NAME);
+	Logger::Info("PORT INFO - REST : " + to_string(PORT) + ", SOCKET : " + to_string(PORT + 1));
+	
 	Assets::pauseUntilKeyPressed("Press Enter to exit");
+
 	RestDirCollector::Shutdown();
+	
+	RestDirCollectorThread.detach();
+	SocketCollectorThread.detach();
+
 	return 0;
 }
