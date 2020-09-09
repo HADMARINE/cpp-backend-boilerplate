@@ -68,7 +68,7 @@ string Logger::getTimeNow(void) {
 	return "[" + extSmNum((&pLocal)->tm_year + 1900) + "-" + 
 		extSmNum((&pLocal)->tm_mon + 1) + "-" +
 		extSmNum((&pLocal)->tm_mday) + " " + extSmNum((&pLocal)->tm_hour) + ":" +
-		extSmNum((&pLocal)->tm_min) + ":" + extSmNum((&pLocal)->tm_sec) + "]: ";
+		extSmNum((&pLocal)->tm_min) + ":" + extSmNum((&pLocal)->tm_sec) + "] ";
 }
 
 void Logger::RawLogger(string mes) {

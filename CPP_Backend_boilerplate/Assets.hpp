@@ -4,7 +4,6 @@
 #define ASSETS
 
 #include "stdafx.h"
-#include ""
 
 using namespace std;
 
