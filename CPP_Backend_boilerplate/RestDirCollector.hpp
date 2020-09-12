@@ -1,17 +1,21 @@
 #pragma once
 #include "stdafx.h"
-#include <cpprest/http_listener.h>
 #include <chrono>
-
+#include "restbed.hpp"
 
 using namespace std;
 using namespace web::http;
 using namespace web::http::experimental::listener;
 
-enum REST_DIR_FLAGS {
+enum class REST_DIR_FLAGS {
 	REST_CHECK_FLAGS,
 	REST_IS_ABSOLUTE
 };
+
+enum class REST_METHODS {
+	GET, POST, PATCH, PUT, HEAD, MERGE, OPTIONS, TRACE, CONNECT
+};
+
 
 struct RestDirData {
 	method method;
@@ -26,7 +30,7 @@ struct FilteredRestDirData {
 
 
 inline function<void(http_request)> WRAP_FUNC(function<void(http_request)>,
-	vector<REST_DIR_FLAGS>, method, string);
+	initializer_list<REST_DIR_FLAGS>, method, string);
 
 string parse_method_str(method);
 
@@ -42,7 +46,7 @@ public:
 	RestDirCollector(string);
 	~RestDirCollector();
 
-	bool Append(method, const function<void(http_request)>&, const vector<REST_DIR_FLAGS> = vector<REST_DIR_FLAGS>());
+	bool Append(method, const function<void(http_request)>&, initializer_list<REST_DIR_FLAGS> = {});
 private:
 	string dir;
 };

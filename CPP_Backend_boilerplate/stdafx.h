@@ -14,3 +14,4 @@
 //#include <functional>
 #include "global_preferences.h"
 #include "Logger.hpp"
+#include <string>

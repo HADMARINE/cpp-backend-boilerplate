@@ -1,9 +1,9 @@
 #pragma once
 #include "stdafx.h"
 #include <vector>
-//#include <thread>
 #include "websocketpp/server.hpp"
 #include "websocketpp/config/asio_no_tls.hpp"
+
 
 typedef websocketpp::server<websocketpp::config::asio> server;
 

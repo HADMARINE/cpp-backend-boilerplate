@@ -125,15 +125,16 @@ bool RestDirCollector::Initialize() {
 }
 
 bool RestDirCollector::Append(method method,
-	const function<void(http_request)>& func, const vector<REST_DIR_FLAGS> flags) {
-
+	const function<void(http_request)>& func, initializer_list<REST_DIR_FLAGS> flags) {
 	if (this->isMounted) {
 		Logger::Error("RestDirCollector can not append any routes since mounted! Shutdown RestDirCollector first.");
 		return false;
 	}
 
 	Logger::Debug("APPEND PROCESSED - DIR : " + this->dir);
-	RestDirCollector::dirData->push_back(RestDirData{ method, WRAP_FUNC(func, flags, method, this->dir), this->dir });
+	RestDirCollector::dirData->push_back(
+		RestDirData{ method, WRAP_FUNC(func, flags, method, this->dir), this->dir }
+	);
 	Logger::Debug("APPEND PROCESS COMPLETE");
 	return true;
 }
@@ -157,7 +158,7 @@ bool RestDirCollector::Shutdown(void) {
 
 
 inline function<void(http_request)> WRAP_FUNC(function<void(http_request)> func,
-	vector<REST_DIR_FLAGS> flags, method method, string dir) {
+	initializer_list<REST_DIR_FLAGS> flags, method method, string dir) {
 	if (!ISDEBUGMODE) {
 		return func;
 	}
@@ -175,36 +176,36 @@ inline function<void(http_request)> WRAP_FUNC(function<void(http_request)> func,
 	};
 }
 
-string parse_method_str(method method) {
+string parse_method_str(REST_METHODS method) {
 	string method_string;
-	if (method == methods::GET) {
+	if (method == REST_METHODS::GET) {
 		method_string = "GET";
 	}
-	else if (method == methods::POST) {
+	else if (method == REST_METHODS::POST) {
 		method_string = "POST";
 	}
-	else if (method == methods::CONNECT) {
+	else if (method == REST_METHODS::CONNECT) {
 		method_string = "CONNECT";
 	}
-	else if (method == methods::DEL) {
+	else if (method == REST_METHODS::DELETE) {
 		method_string = "DELETE";
 	}
-	else if (method == methods::HEAD) {
+	else if (method == REST_METHODS::HEAD) {
 		method_string = "HEAD";
 	}
-	else if (method == methods::MERGE) {
+	else if (method == REST_METHODS::MERGE) {
 		method_string = "MERGE";
 	}
-	else if (method == methods::OPTIONS) {
+	else if (method == REST_METHODS::OPTIONS) {
 		method_string = "OPTIONS";
 	}
-	else if (method == methods::PATCH) {
+	else if (method == REST_METHODS::PATCH) {
 		method_string = "PATCH";
 	}
-	else if (method == methods::PUT) {
+	else if (method == REST_METHODS::PUT) {
 		method_string = "PUT";
 	}
-	else if (method == methods::TRCE) {
+	else if (method == REST_METHODS::TRACE) {
 		method_string = "TRACE";
 	}
 	return method_string;
