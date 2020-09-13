@@ -4,6 +4,7 @@
 #include "restbed.hpp"
 #include "Assets.hpp"
 #include "http_code.hpp"
+#include "json/json.h"
 
 using namespace std;
 using namespace restbed;
@@ -18,7 +19,7 @@ namespace Rest {
 		GET, POST, PATCH, PUT, DELETE, HEAD, MERGE, OPTIONS, TRACE, CONNECT
 	};
 
-	string parse_http_code_to_string(int);
+	inline int parse_http_code_to_int(HTTP_CODE);
 	string parse_http_code_to_string(HTTP_CODE);
 
 	struct RestDirData {
@@ -31,11 +32,6 @@ namespace Rest {
 		string location;
 		vector<RestDirData>* data;
 	};
-
-	inline function<void(shared_ptr<Session>)> WRAP_FUNC(function<void(REQUEST, RESPONSE)>,
-		initializer_list<REST_DIR_FLAGS>, REST_METHODS, string);
-
-	string parse_method_str(REST_METHODS);
 
 	class REQUEST {
 	public:
@@ -58,7 +54,7 @@ namespace Rest {
 		~RESPONSE();
 
 		void send(HTTP_CODE, string);
-		void json(HTTP_CODE, string);
+		void json(HTTP_CODE, Json::Value);
 
 		shared_ptr<Session> getRawSession(void);
 	private:
@@ -83,4 +79,10 @@ namespace Rest {
 	private:
 		string dir;
 	};
+
+	inline function<void(shared_ptr<Session>)> WRAP_FUNC(function<void(REQUEST, RESPONSE)>,
+		initializer_list<REST_DIR_FLAGS>, REST_METHODS, string);
+
+	string parse_method_str(REST_METHODS);
+
 }

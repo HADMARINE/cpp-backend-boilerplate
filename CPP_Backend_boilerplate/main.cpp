@@ -1,6 +1,6 @@
 #include "stdafx.h"
-#include "RestDirCollector.hpp"
-#include "SocketCollector.hpp"
+#include "RestManager.hpp"
+#include "SocketManager.hpp"
 #include "Assets.hpp"
 #include <thread>
 
@@ -9,12 +9,12 @@ using namespace std;
 bool isRestDirCollectorStarted = false, isSocketCollectorStarted = false;
 
 int initializeRestDirCollector() {
-	if (!RestDirCollector::Initialize()) {
-		Logger::Error("Failed to initialize RestDirCollector", true);
+	if (!Rest::RestDirCollector::Initialize()) {
+		CLogger::Error("Failed to initialize RestDirCollector", true);
 		return 1;
 	}
 	 
-	Logger::Debug("RestDirCollector STARTED");
+	CLogger::Debug("RestDirCollector STARTED");
 
 	isRestDirCollectorStarted = true;
 
@@ -22,8 +22,8 @@ int initializeRestDirCollector() {
 }
 
 int initializeSocketCollector() {
-	if (!SocketCollector::Initialize(&isSocketCollectorStarted)) {
-		Logger::Error("Failed to initialize SocketCollector");
+	if (!Socket::SocketCollector::Initialize(&isSocketCollectorStarted)) {
+		CLogger::Error("Failed to initialize SocketCollector");
 		return -1;
 	}
 }
@@ -31,19 +31,19 @@ int initializeSocketCollector() {
 
 
 int main(void) {
-	Logger::Info("Loading Backend API ... (" + (string)APPLICATION_NAME + ")");
+	CLogger::Info("Loading Backend API ... (" + (string)APPLICATION_NAME + ")");
 
 	thread RestDirCollectorThread(initializeRestDirCollector);
 	thread SocketCollectorThread(initializeSocketCollector);
 
 	while (!isRestDirCollectorStarted || !isSocketCollectorStarted);
 
-	Logger::Info("Started " + (string)APPLICATION_NAME);
-	Logger::Info("PORT INFO - REST : " + to_string(PORT) + ", SOCKET : " + to_string(PORT + 1));
+	CLogger::Info("Started " + (string)APPLICATION_NAME);
+	CLogger::Info("PORT INFO - REST : " + to_string(PORT) + ", SOCKET : " + to_string(PORT + 1));
 	
 	Assets::pauseUntilKeyPressed("Press Enter to exit");
 
-	RestDirCollector::Shutdown();
+	Rest::RestDirCollector::Shutdown();
 	
 	RestDirCollectorThread.detach();
 	SocketCollectorThread.detach();

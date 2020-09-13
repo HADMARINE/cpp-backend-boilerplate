@@ -14,7 +14,7 @@ namespace Rest {
 		int content_length = request->get_header("Content-Length", 0);
 		char* buffer;
 		session->fetch(content_length, [buffer](const shared_ptr<Session> session, const Bytes& body) {
-			sprintf(buffer, "%.*s\n", (int)body.size(), body.data());
+			sprintf_s(buffer, 2147483647, "%.*s\n", (int)body.size(), body.data());
 			}
 		);
 		return buffer;

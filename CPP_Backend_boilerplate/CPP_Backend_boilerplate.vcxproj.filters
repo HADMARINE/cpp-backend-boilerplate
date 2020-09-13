@@ -40,6 +40,15 @@
     <Filter Include="src\outlib">
       <UniqueIdentifier>{ba11ee60-789f-4305-abf6-a5b26e7db074}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\util\CLogger">
+      <UniqueIdentifier>{857a482a-d66a-4262-b90f-3e6303120274}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\Assets">
+      <UniqueIdentifier>{a92d4d38-ecf6-4bc1-91e2-3e889d3dd857}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\util\Parser">
+      <UniqueIdentifier>{99c41669-3f59-4e48-9638-9f7f551bc8c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -51,17 +60,29 @@
     <ClCompile Include="RestDirCollector.cpp">
       <Filter>src\core\rest</Filter>
     </ClCompile>
-    <ClCompile Include="Logger.cpp">
-      <Filter>src\lib</Filter>
-    </ClCompile>
-    <ClCompile Include="Parser.cpp">
-      <Filter>src\util</Filter>
-    </ClCompile>
     <ClCompile Include="SocketCollector.cpp">
       <Filter>src\core\socket</Filter>
     </ClCompile>
+    <ClCompile Include="REST_Request.cpp">
+      <Filter>src\core\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="REST_Response.cpp">
+      <Filter>src\core\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="REST_functions.cpp">
+      <Filter>src\core\rest</Filter>
+    </ClCompile>
+    <ClCompile Include="CLogger.cpp">
+      <Filter>src\util\CLogger</Filter>
+    </ClCompile>
     <ClCompile Include="Assets.cpp">
-      <Filter>src\util</Filter>
+      <Filter>src\util\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>src\util\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="http_code.hpp">
+      <Filter>src\core\rest</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -71,23 +92,8 @@
     <ClInclude Include="targetver.h">
       <Filter>src\settings</Filter>
     </ClInclude>
-    <ClInclude Include="RestDirCollector.hpp">
-      <Filter>src\core\rest</Filter>
-    </ClInclude>
     <ClInclude Include="global_preferences.h">
       <Filter>src\settings</Filter>
-    </ClInclude>
-    <ClInclude Include="Logger.hpp">
-      <Filter>src\lib</Filter>
-    </ClInclude>
-    <ClInclude Include="Parser.hpp">
-      <Filter>src\util</Filter>
-    </ClInclude>
-    <ClInclude Include="Assets.hpp">
-      <Filter>src\util</Filter>
-    </ClInclude>
-    <ClInclude Include="SocketCollector.hpp">
-      <Filter>src\core\socket</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\base64\base64.hpp">
       <Filter>headers</Filter>
@@ -370,6 +376,21 @@
     </ClInclude>
     <ClInclude Include="restbed.hpp">
       <Filter>src\outlib</Filter>
+    </ClInclude>
+    <ClInclude Include="RestManager.hpp">
+      <Filter>src\core\rest</Filter>
+    </ClInclude>
+    <ClInclude Include="CLogger.hpp">
+      <Filter>src\util\CLogger</Filter>
+    </ClInclude>
+    <ClInclude Include="Assets.hpp">
+      <Filter>src\util\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.hpp">
+      <Filter>src\util\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="SocketManager.hpp">
+      <Filter>src\core\socket</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
