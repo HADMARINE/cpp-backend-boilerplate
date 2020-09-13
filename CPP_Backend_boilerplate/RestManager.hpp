@@ -19,7 +19,7 @@ namespace Rest {
 		GET, POST, PATCH, PUT, DELETE, HEAD, MERGE, OPTIONS, TRACE, CONNECT
 	};
 
-	inline int parse_http_code_to_int(HTTP_CODE);
+	int parse_http_code_to_int(HTTP_CODE);
 	string parse_http_code_to_string(HTTP_CODE);
 
 	struct RestDirData {
@@ -80,7 +80,7 @@ namespace Rest {
 		string dir;
 	};
 
-	inline function<void(shared_ptr<Session>)> WRAP_FUNC(function<void(REQUEST, RESPONSE)>,
+	function<void(shared_ptr<Session>)> WRAP_FUNC(function<void(REQUEST, RESPONSE)>,
 		initializer_list<REST_DIR_FLAGS>, REST_METHODS, string);
 
 	string parse_method_str(REST_METHODS);

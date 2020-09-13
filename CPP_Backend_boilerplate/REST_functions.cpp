@@ -40,7 +40,7 @@ namespace Rest{
 		return method_string;
 	}
 
-	inline function<void(shared_ptr<Session>)>
+	function<void(shared_ptr<Session>)>
 		WRAP_FUNC(function<void(REQUEST, RESPONSE)> func,
 			initializer_list<REST_DIR_FLAGS> flags, REST_METHODS method, string dir) {
 		if (!ISDEBUGMODE) {
@@ -65,7 +65,7 @@ namespace Rest{
 		};
 	}
 
-	inline int parse_http_code_to_int(HTTP_CODE code) {
+	int parse_http_code_to_int(HTTP_CODE code) {
 		return (int)code;
 	}
 
