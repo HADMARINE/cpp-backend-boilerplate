@@ -6,12 +6,12 @@
 
 
 #include <stdio.h>
-#include <stdlib.h>
 #include <malloc.h>
 #include <memory.h>
 //#include <tchar.h>
 #include <iostream>
 //#include <functional>
-#include "global_preferences.h"
-#include "Logger.hpp"
 #include <string>
+#include <cstdlib>
+#include "global_preferences.h"
+#include "CLogger.hpp"

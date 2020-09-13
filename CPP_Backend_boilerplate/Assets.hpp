@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef ASSETS
-#define ASSETS
-
 #include "stdafx.h"
 
 using namespace std;
@@ -14,5 +11,3 @@ public:
 	static void pauseUntilKeyPressed(string mes);
 	static void pauseUntilKeyPressed(void);
 };
-
-#endif

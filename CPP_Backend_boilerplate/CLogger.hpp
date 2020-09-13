@@ -10,7 +10,7 @@ enum COLOR {
 	LIGHTRED, LIGHTMAGENTA, YELLOW, WHITE
 };
 
-class Logger {
+class CLogger {
 public:
 	static bool isUsing;
 	static void RawLogger(string);

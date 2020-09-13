@@ -1,18 +1,20 @@
 #include "stdafx.h"
-#include "RestDirCollector.hpp"
+#include "RestManager.hpp"
+
+using namespace Rest;
 
 RestDirCollector* rdc = new RestDirCollector("/testdir");
 
-void getHelloWorld(http_request req) {
-	req.reply(status_codes::OK, U("HELLO WORLD"));
+void getHelloWorld(REQUEST req, RESPONSE res) {
+	res.send(HTTP_CODE::OK, "HELLO WORLD");
 } 
 
 
 class TestDir {
 public:
 	TestDir(void) {
-		rdc->Append(methods::DEL, getHelloWorld);
-		rdc->Append(methods::GET, getHelloWorld);
+		rdc->Append(REST_METHODS::DELETE, getHelloWorld);
+		rdc->Append(REST_METHODS::GET, getHelloWorld);
 	}
 	~TestDir(void) {
 		delete rdc;

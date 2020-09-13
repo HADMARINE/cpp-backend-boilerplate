@@ -1,212 +1,162 @@
 #include "stdafx.h"
-#include "RestDirCollector.hpp"
+#include "RestManager.hpp"
 #include "Parser.hpp"
 
-vector<RestDirData>* RestDirCollector::dirData = new vector<RestDirData>;
-vector<http_listener*>* RestDirCollector::ListenerList = new vector<http_listener*>;
-bool RestDirCollector::isMounted = false;
+namespace Rest{
+	vector<RestDirData>* RestDirCollector::dirData = new vector<RestDirData>;
+	bool RestDirCollector::isMounted = false;
 
-RestDirCollector::RestDirCollector(string dir) {
-	this->dir = dir;
-}
-
-RestDirCollector::~RestDirCollector() {
-	Logger::Debug("RestDirCollector closed. dir : (" + this->dir + ")");
-}
-
-bool RestDirCollector::Initialize() {
-
-	if (RestDirCollector::isMounted) {
-		Logger::Error("RestDirCollector has been mounted already!");
-		return false;
+	RestDirCollector::RestDirCollector(string dir) {
+		this->dir = dir;
 	}
 
-	Logger::Debug("Mounting Started.");
-
-	Logger::Debug("Start Collecting endpoints of RestDirCollector...(1/3)");
-
-	vector<string> *dirCollections = new vector<string>;
-
-	// Collect all endpoints of RestDirCollector
-	for (unsigned int i = 0; i < RestDirCollector::dirData->size(); i++) {
-		bool isContained = false;
-		for (unsigned int ci = 0; ci < dirCollections->size(); ci++) {
-			if (dirCollections->at(ci) == RestDirCollector::dirData->at(i).location) {
-				isContained = true;
-			}
-		}
-
-		if (isContained == false) {
-			dirCollections->push_back(RestDirCollector::dirData->at(i).location);
-		}
+	RestDirCollector::~RestDirCollector() {
+		CLogger::Debug("RestDirCollector closed. dir : (" + this->dir + ")");
 	}
 
-	Logger::Debug("Start Collecting endpoints of RestDirCollector...(1/3)...DONE!");
+	bool RestDirCollector::Initialize() {
 
-	Logger::Debug("Start Filtering RestDirData by location...(2/3)");
-
-	// Filter RestDirData by location
-	vector<FilteredRestDirData>* filteredRestDirData = new vector<FilteredRestDirData>;
-
-	for (unsigned int i = 0; i < dirCollections->size(); i++) {
-		string* currDir = new string;
-		*currDir = dirCollections->at(i);
-
-		vector<RestDirData>* currRddData = new vector<RestDirData>;
-
-		for (unsigned int ii = 0; ii < RestDirCollector::dirData->size(); ii++) {
-
-			RestDirData* currRdd = new RestDirData;
-			*currRdd = RestDirCollector::dirData->at(ii);
-			
-			if (currRdd->location == *currDir) {
-				currRddData->push_back(*currRdd);
-			}
-
-			delete currRdd;
-			currRdd = nullptr;
-
+		if (RestDirCollector::isMounted) {
+			CLogger::Error("RestDirCollector has been mounted already!");
+			return false;
 		}
 
-		filteredRestDirData->push_back(FilteredRestDirData{*currDir, currRddData});
+		CLogger::Debug("Mounting Started.");
 
-		delete currDir;
-		currDir = nullptr;
-	}
+		CLogger::Debug("Start Collecting endpoints of RestDirCollector...(1/3)");
 
-	Logger::Debug("Start Filtering RestDirData by location...(2/3)...DONE!");
+		vector<string>* dirCollections = new vector<string>;
 
-	Logger::Debug("Start Create listeners and load endpoints by support method...(3/3)");
-
-	// Create Class Object by dirCollections
-	for (unsigned int i = 0; i < filteredRestDirData->size(); i++) {
-		FilteredRestDirData* currFRDD = new FilteredRestDirData;
-		*currFRDD = filteredRestDirData->at(i);
-
-		Logger::Debug("MOUNTING : " + currFRDD->location);
-
-		http_listener *listener = new http_listener;
-		*listener = http_listener(U("http://localhost:" +
-			to_wstring(PORT) + Parser::parseStringToWstring(currFRDD->location)));
-		
-		RestDirCollector::ListenerList->push_back(listener);
-
-		try
-		{
-			listener->open().then(
-				[=]() {
-					Logger::Debug("MOUNTING: " + currFRDD->location + " ...SUCCESS!");
+		// Collect all endpoints of RestDirCollector
+		for (unsigned int i = 0; i < RestDirCollector::dirData->size(); i++) {
+			bool isContained = false;
+			for (unsigned int ci = 0; ci < dirCollections->size(); ci++) {
+				if (dirCollections->at(ci) == RestDirCollector::dirData->at(i).location) {
+					isContained = true;
 				}
-			).wait();
-		}
-		catch (const std::exception&)
-		{
-			Logger::Error("Failed to initialize RestDirCollector. dir : ("
-				+ currFRDD->location + ")");
+			}
+
+			if (isContained == false) {
+				dirCollections->push_back(RestDirCollector::dirData->at(i).location);
+			}
 		}
 
-		//Append listener to Listener list
-		//ListenerList->push_back(&listener);
+		CLogger::Debug("Start Collecting endpoints of RestDirCollector...(1/3)...DONE!");
+
+		CLogger::Debug("Start Filtering RestDirData by location...(2/3)");
+
+		// Filter RestDirData by location
+		vector<FilteredRestDirData>* filteredRestDirData = new vector<FilteredRestDirData>;
+
+		for (unsigned int i = 0; i < dirCollections->size(); i++) {
+			string* currDir = new string;
+			*currDir = dirCollections->at(i);
+
+			vector<RestDirData>* currRddData = new vector<RestDirData>;
+
+			for (unsigned int ii = 0; ii < RestDirCollector::dirData->size(); ii++) {
+
+				RestDirData* currRdd = new RestDirData;
+				*currRdd = RestDirCollector::dirData->at(ii);
+
+				if (currRdd->location == *currDir) {
+					currRddData->push_back(*currRdd);
+				}
+
+				delete currRdd;
+				currRdd = nullptr;
+
+			}
+
+			filteredRestDirData->push_back(FilteredRestDirData{ *currDir, currRddData });
+
+			delete currDir;
+			currDir = nullptr;
+		}
+
+		CLogger::Debug("Start Filtering RestDirData by location...(2/3)...DONE!");
+
+		CLogger::Debug("Start Create listeners and load endpoints by support method...(3/3)");
+
+		Service service;
+
+		shared_ptr<Settings> settings = make_shared<Settings>();
 		
-		for (RestDirData curRdd: *currFRDD->data) {
-			listener->support(curRdd.method, curRdd.func);
+		settings->set_port(PORT);
+		settings->set_worker_limit(REST_WORKER_LIMIT);
+
+
+
+		// Create Class Object by dirCollections
+		for (unsigned int i = 0; i < filteredRestDirData->size(); i++) {
+			FilteredRestDirData* currFRDD = new FilteredRestDirData;
+			*currFRDD = filteredRestDirData->at(i);
+
+			CLogger::Debug("MOUNTING : " + currFRDD->location);
+
+			/*http_listener* listener = new http_listener;
+			*listener = http_listener(U("http://localhost:" +
+				to_wstring(PORT) + Parser::parseStringToWstring(currFRDD->location)));*/
+
+			shared_ptr<Resource> resource = make_shared<Resource>();
+			resource->set_path(currFRDD->location);
+
+
+			for (RestDirData curRdd : *currFRDD->data) {
+				resource->set_method_handler(parse_method_str(curRdd.method), curRdd.func);
+			}
+
+			service.publish(resource);
+
+			delete currFRDD;
+			currFRDD = nullptr;
 		}
 
-		delete currFRDD;//c
-		currFRDD = nullptr;
+		service.start(settings);
+
+		CLogger::Debug("Start Create listeners and load endpoints by support method...(3/3)...DONE!");
+
+		RestDirCollector::isMounted = true;
+
+		delete filteredRestDirData;
+		filteredRestDirData = nullptr;
+		return true;
 	}
-	Logger::Debug("Start Create listeners and load endpoints by support method...(3/3)...DONE!");
 
-	RestDirCollector::isMounted = true;
+	bool RestDirCollector::Append(REST_METHODS method,
+		const function<void(REQUEST, RESPONSE)>& func,
+		initializer_list<REST_DIR_FLAGS> flags) {
+		return RestDirCollector::Append("", method, func, flags);
+	}
 
-	delete filteredRestDirData;
-	filteredRestDirData = nullptr;
-	return true;
+	bool RestDirCollector::Append(
+		string dir,
+		REST_METHODS method,
+		const function<void(REQUEST, RESPONSE)>& func,
+		initializer_list<REST_DIR_FLAGS> flags) {
+		if (this->isMounted) {
+			CLogger::Error("RestDirCollector can not append any routes since mounted! Shutdown RestDirCollector first.");
+			return false;
+		}
+
+		string newDir = this->dir + dir;
+
+		CLogger::Debug("APPEND PROCESSED - DIR : " + newDir);
+		RestDirCollector::dirData->push_back(
+			RestDirData{ method, WRAP_FUNC(func, flags, method, newDir), newDir }
+		);
+		CLogger::Debug("APPEND PROCESS COMPLETE");
+		return true;
+	}
+
+	bool RestDirCollector::Shutdown(void) {
+		CLogger::Debug("SHUTDOWN PROCESS STARTED");
+
+		RestDirCollector::dirData->clear();
+		RestDirCollector::isMounted = false;
+
+		CLogger::Debug("SHUTDOWN PROCESS COMPLETE");
+		return true;
+	}
 }
 
-bool RestDirCollector::Append(method method,
-	const function<void(http_request)>& func, initializer_list<REST_DIR_FLAGS> flags) {
-	if (this->isMounted) {
-		Logger::Error("RestDirCollector can not append any routes since mounted! Shutdown RestDirCollector first.");
-		return false;
-	}
-
-	Logger::Debug("APPEND PROCESSED - DIR : " + this->dir);
-	RestDirCollector::dirData->push_back(
-		RestDirData{ method, WRAP_FUNC(func, flags, method, this->dir), this->dir }
-	);
-	Logger::Debug("APPEND PROCESS COMPLETE");
-	return true;
-}
-
-bool RestDirCollector::Shutdown(void) {
-	Logger::Debug("SHUTDOWN PROCESS STARTED");
-	for (http_listener* listener : *RestDirCollector::ListenerList) {
-		listener->close().wait();
-		delete listener;
-		listener = nullptr;
-	}
-
-	RestDirCollector::dirData->clear();
-	RestDirCollector::ListenerList->clear();
-	RestDirCollector::isMounted = false;
-
-	Logger::Debug("SHUTDOWN PROCESS COMPLETE");
-	return true;
-}
-
-
-
-inline function<void(http_request)> WRAP_FUNC(function<void(http_request)> func,
-	initializer_list<REST_DIR_FLAGS> flags, method method, string dir) {
-	if (!ISDEBUGMODE) {
-		return func;
-	}
-
-	string method_string = parse_method_str(method);
-
-	return [=](http_request req) {
-
-		chrono::steady_clock::time_point startTime = chrono::high_resolution_clock::now();
-		func(req);
-		chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
-		chrono::duration<double> elapsedTime = stopTime - startTime;
-		Logger::Debug("REQUEST :  " + method_string + " " + dir + " - "
-			+ to_string(elapsedTime.count() * 1000) + "ms");
-	};
-}
-
-string parse_method_str(REST_METHODS method) {
-	string method_string;
-	if (method == REST_METHODS::GET) {
-		method_string = "GET";
-	}
-	else if (method == REST_METHODS::POST) {
-		method_string = "POST";
-	}
-	else if (method == REST_METHODS::CONNECT) {
-		method_string = "CONNECT";
-	}
-	else if (method == REST_METHODS::DELETE) {
-		method_string = "DELETE";
-	}
-	else if (method == REST_METHODS::HEAD) {
-		method_string = "HEAD";
-	}
-	else if (method == REST_METHODS::MERGE) {
-		method_string = "MERGE";
-	}
-	else if (method == REST_METHODS::OPTIONS) {
-		method_string = "OPTIONS";
-	}
-	else if (method == REST_METHODS::PATCH) {
-		method_string = "PATCH";
-	}
-	else if (method == REST_METHODS::PUT) {
-		method_string = "PUT";
-	}
-	else if (method == REST_METHODS::TRACE) {
-		method_string = "TRACE";
-	}
-	return method_string;
-}

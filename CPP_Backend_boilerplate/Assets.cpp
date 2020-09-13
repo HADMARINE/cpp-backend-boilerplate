@@ -1,7 +1,7 @@
 #include "Assets.hpp"
 
 void Assets::pauseUntilKeyPressed(char k, string mes) {
-	Logger::Info(mes);
+	CLogger::Info(mes);
 	fgetc(stdin);
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
@@ -12,7 +12,7 @@ void Assets::pauseUntilKeyPressed(char k) {
 }
 
 void Assets::pauseUntilKeyPressed(string mes) {
-	Logger::Info(mes);
+	CLogger::Info(mes);
 	fgetc(stdin);
 	cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }

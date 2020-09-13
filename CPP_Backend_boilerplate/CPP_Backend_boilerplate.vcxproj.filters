@@ -368,10 +368,8 @@
     <ClInclude Include="..\..\..\..\Programming\websocketpp\websocketpp\version.hpp">
       <Filter>headers</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="restbed.lib">
+    <ClInclude Include="restbed.hpp">
       <Filter>src\outlib</Filter>
-    </Library>
+    </ClInclude>
   </ItemGroup>
 </Project>
