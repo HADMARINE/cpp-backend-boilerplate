@@ -9,25 +9,18 @@ using namespace std;
 bool isRestDirCollectorStarted = false, isSocketCollectorStarted = false;
 
 int initializeRestDirCollector() {
-	if (!Rest::RestDirCollector::Initialize()) {
+	if (!Rest::RestDirCollector::Initialize(isRestDirCollectorStarted)) {
 		CLogger::Error("Failed to initialize RestDirCollector", true);
-		return 1;
-	}
-	 
-	CLogger::Debug("RestDirCollector STARTED");
-
-	isRestDirCollectorStarted = true;
-
-	while (true);
-}
-
-int initializeSocketCollector() {
-	if (!Socket::SocketCollector::Initialize(&isSocketCollectorStarted)) {
-		CLogger::Error("Failed to initialize SocketCollector");
 		return -1;
 	}
 }
 
+int initializeSocketCollector() {
+	if (!Socket::SocketCollector::Initialize(isSocketCollectorStarted)) {
+		CLogger::Error("Failed to initialize SocketCollector");
+		return -1;
+	}
+}
 
 
 int main(void) {

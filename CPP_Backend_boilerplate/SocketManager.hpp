@@ -12,7 +12,7 @@ namespace Socket {
 	public:
 		//SocketCollector();
 		//~SocketCollector();
-		static bool Initialize(bool* result);
+		static bool Initialize(bool &result);
 
 	private:
 		string event;

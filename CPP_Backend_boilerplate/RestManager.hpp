@@ -65,7 +65,7 @@ namespace Rest {
 
 	class RestDirCollector {
 	public:
-		static bool Initialize(void);
+		static bool Initialize(bool&);
 		static bool Shutdown(void);
 
 		static vector<RestDirData>* dirData;
