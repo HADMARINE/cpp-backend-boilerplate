@@ -1,0 +1,24 @@
+___REST___
+
+req
+-body =
+-headers =
+-query -> query parser =
+-params -> is it possible? =
+
+res
+-json -> json type to string =
+-send -> string =
+-header
+
+json parser = - jsoncpp
+
+error handler
+
+404 handler
+
+DBMS handler
+
+___WebSocket___
+
+use websocketpp? or use restbed?

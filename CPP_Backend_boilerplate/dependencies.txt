@@ -1,1 +1,2 @@
-https://github.com/microsoft/cpprestsdk
+https://github.com/zaphoyd/websocketpp
+https://github.com/Corvusoft/restbed
