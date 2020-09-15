@@ -49,6 +49,9 @@
     <Filter Include="src\util\Parser">
       <UniqueIdentifier>{99c41669-3f59-4e48-9638-9f7f551bc8c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\etc">
+      <UniqueIdentifier>{73763f40-fe88-489a-a5ca-2327bc3ebb75}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -392,5 +395,13 @@
     <ClInclude Include="SocketManager.hpp">
       <Filter>src\core\socket</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="dependencies.txt">
+      <Filter>src\etc</Filter>
+    </Text>
+    <Text Include="todo.txt">
+      <Filter>src\etc</Filter>
+    </Text>
   </ItemGroup>
 </Project>
