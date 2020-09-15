@@ -10,9 +10,11 @@ using namespace std;
 using namespace restbed;
 
 namespace Rest {
-	enum class REST_DIR_FLAGS {
+	enum class REST_FLAGS {
 		REST_CHECK_FLAGS,
-		REST_IS_ABSOLUTE
+		IS_ABSOLUTE,
+		VERIFY_JWT_ADMIN,
+		VERIFY_JWT_USER
 	};
 
 	enum class REST_METHODS {
@@ -73,15 +75,15 @@ namespace Rest {
 		~RestDirCollector(void);
 
 		bool Append(REST_METHODS, const function<void(REQUEST, RESPONSE)>&, 
-			initializer_list<REST_DIR_FLAGS> = {});
+			initializer_list<REST_FLAGS> = {});
 		bool Append(string, REST_METHODS, const function<void(REQUEST, RESPONSE)>&, 
-			initializer_list<REST_DIR_FLAGS> = {});
+			initializer_list<REST_FLAGS> = {});
 	private:
 		string dir;
 	};
 
 	function<void(shared_ptr<Session>)> WRAP_FUNC(function<void(REQUEST, RESPONSE)>,
-		initializer_list<REST_DIR_FLAGS>, REST_METHODS, string);
+		initializer_list<REST_FLAGS>, REST_METHODS, string);
 
 	string parse_method_str(REST_METHODS);
 

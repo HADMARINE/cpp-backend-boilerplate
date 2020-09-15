@@ -42,7 +42,7 @@ namespace Rest{
 
 	function<void(shared_ptr<Session>)>
 		WRAP_FUNC(function<void(REQUEST, RESPONSE)> func,
-			initializer_list<REST_DIR_FLAGS> flags, REST_METHODS method, string dir) {
+			initializer_list<REST_FLAGS> flags, REST_METHODS method, string dir) {
 		if (!ISDEBUGMODE) {
 			return [=](shared_ptr<Session> session) {
 				REQUEST req(session);

@@ -125,7 +125,7 @@ namespace Rest{
 
 	bool RestDirCollector::Append(REST_METHODS method,
 		const function<void(REQUEST, RESPONSE)>& func,
-		initializer_list<REST_DIR_FLAGS> flags) {
+		initializer_list<REST_FLAGS> flags) {
 		return RestDirCollector::Append("", method, func, flags);
 	}
 
@@ -133,7 +133,7 @@ namespace Rest{
 		string dir,
 		REST_METHODS method,
 		const function<void(REQUEST, RESPONSE)>& func,
-		initializer_list<REST_DIR_FLAGS> flags) {
+		initializer_list<REST_FLAGS> flags) {
 		if (this->isMounted) {
 			CLogger::Error("RestDirCollector can not append any routes since mounted! Shutdown RestDirCollector first.");
 			return false;

@@ -1,4 +1,4 @@
-___REST___
+__REST__
 
 req
 -body =
@@ -19,6 +19,27 @@ error handler
 
 DBMS handler
 
-___WebSocket___
+public file serve (static file)
+
+===Middleware
+apiRateLimiter
+JWT Middleware
+
+
+__WebSocket__
 
 use websocketpp? or use restbed?
+
+TCP / UDP connection 
+
+socket thread
+
+
+__UTIL__
+
+=== Assets
+Symmetry encryption
+Asymmetry encryption
+getRandomNumber
+REGEX (email, password, etc)
+JWT enc / dec / validation
