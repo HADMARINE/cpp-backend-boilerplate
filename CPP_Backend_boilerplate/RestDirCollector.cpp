@@ -14,7 +14,7 @@ namespace Rest{
 		CLogger::Debug("RestDirCollector closed. dir : (" + this->dir + ")");
 	}
 
-	bool RestDirCollector::Initialize(bool &status) {
+	bool RestDirCollector::Initialize(bool &status, Service &service) {
 
 		if (RestDirCollector::isMounted) {
 			CLogger::Error("RestDirCollector has been mounted already!");
@@ -69,7 +69,7 @@ namespace Rest{
 			}
 
 			filteredRestDirData->push_back(FilteredRestDirData{ *currDir, currRddData });
-
+			
 			delete currDir;
 			currDir = nullptr;
 		}
@@ -78,12 +78,8 @@ namespace Rest{
 
 		CLogger::Debug("Start Create listeners and load endpoints by support method...(3/3)");
 
-		Service service;
 
-		shared_ptr<Settings> settings = make_shared<Settings>();
 		
-		settings->set_port(PORT);
-		settings->set_worker_limit(REST_WORKER_LIMIT);
 
 
 
@@ -118,8 +114,6 @@ namespace Rest{
 		filteredRestDirData = nullptr;
 
 		CLogger::Debug("RestDirCollector STARTED");
-
-		service.start(settings);
 
 		return true;
 	}

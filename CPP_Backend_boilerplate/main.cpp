@@ -6,10 +6,15 @@
 
 using namespace std;
 
+
+Service service;
+shared_ptr<Settings> settings = make_shared<Settings>();
+
 bool isRestDirCollectorStarted = false, isSocketCollectorStarted = false;
 
 int initializeRestDirCollector() {
-	if (!Rest::RestDirCollector::Initialize(isRestDirCollectorStarted)) {
+	if (!Rest::RestDirCollector::Initialize(isRestDirCollectorStarted,
+		service)) {
 		CLogger::Error("Failed to initialize RestDirCollector", true);
 		return -1;
 	}
@@ -26,10 +31,15 @@ int initializeSocketCollector() {
 int main(void) {
 	CLogger::Info("Loading Backend API ... (" + (string)APPLICATION_NAME + ")");
 
+	settings->set_port(PORT);
+	settings->set_worker_limit(REST_WORKER_LIMIT);
+
 	thread RestDirCollectorThread(initializeRestDirCollector);
 	thread SocketCollectorThread(initializeSocketCollector);
 
 	while (!isRestDirCollectorStarted || !isSocketCollectorStarted);
+
+	service.start(settings);
 
 	CLogger::Info("Started " + (string)APPLICATION_NAME);
 	CLogger::Info("PORT INFO - REST : " + to_string(PORT) + ", SOCKET : " + to_string(PORT + 1));
