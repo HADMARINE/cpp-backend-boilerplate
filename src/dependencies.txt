@@ -1,0 +1,3 @@
+https://github.com/zaphoyd/websocketpp
+https://github.com/Corvusoft/restbed
+https://github.com/open-source-parsers/jsoncpp
