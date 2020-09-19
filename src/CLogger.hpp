@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
-#include <time.h>
+#include <ctime>
+#include <cstdarg>
 
 #if defined(_WIN32) || defined(_WIN64)
 #include <Windows.h>
@@ -19,10 +20,11 @@ enum COLOR {
 class CLogger {
 public:
 	static bool isUsing;
-	static void RawLogger(string);
-	static void Info(string);
-	static void Error(string, bool showErrorStackByDialogue = false);
-	static void Debug(string);
+	static void RawLogger(const char *, ...);
+	static void Info(const char *, ...);
+	static void Error(bool, const char *, ...);
+	static void Error(const char *, ...);
+	static void Debug(const char *, ...);
 	static void ClearWindow();
-	static string getTimeNow(void);
+	static string getTimeNow();
 };

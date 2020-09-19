@@ -13,7 +13,7 @@ namespace Rest{
 	}
 
 	RestDirCollector::~RestDirCollector() {
-		CLogger::Debug("RestDirCollector closed. dir : (" + this->dir + ")");
+		CLogger::Debug("RestDirCollector closed. dir : (%s)", this->dir.c_str());
 	}
 
 	bool RestDirCollector::Initialize(Service &service) {
@@ -85,7 +85,7 @@ namespace Rest{
 			auto* currFRDD = new FilteredRestDirData;
 			*currFRDD = i;
 
-			CLogger::Debug("MOUNTING : " + currFRDD->location);
+			CLogger::Debug("MOUNTING : %s", currFRDD->location.c_str());
 
 			shared_ptr<Resource> resource = make_shared<Resource>();
 			resource->set_path(currFRDD->location);
@@ -131,7 +131,7 @@ namespace Rest{
 
 		string newDir = this->dir + dir;
 
-		CLogger::Debug("APPEND PROCESSED - DIR : " + newDir);
+		CLogger::Debug("APPEND PROCESSED - DIR : %s", newDir.c_str());
 		RestDirCollector::dirData->push_back(
 			RestDirData{ method, WRAP_FUNC(func, flags, method, newDir), newDir }
 		);

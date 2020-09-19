@@ -12,7 +12,7 @@ shared_ptr<Settings> settings = make_shared<Settings>();
 
 int initializeRestDirCollector() {
 	if (!Rest::RestDirCollector::Initialize(service)) {
-		CLogger::Error("Failed to initialize RestDirCollector", true);
+		CLogger::Error("Failed to initialize RestDirCollector");
 		return -1;
 	}
 	return 0;
@@ -31,8 +31,8 @@ void startServer() {
 }
 
 
-int main(void) {
-	CLogger::Info("Loading Backend API ... (" + (string)APPLICATION_NAME + ")");
+int main() {
+    CLogger::Info("Loading Backend API ... (%s)", APPLICATION_NAME);
 
 	settings->set_port(PORT);
 	settings->set_worker_limit(REST_WORKER_LIMIT);
@@ -45,7 +45,7 @@ int main(void) {
 
     thread RootServerThread(startServer);
 
-	CLogger::Info("Started " + (string)APPLICATION_NAME + "at port " + to_string(PORT));
+    CLogger::Info("Started %s at port %d", APPLICATION_NAME, PORT);
 
 	Assets::pauseUntilKeyPressed("Press Enter to exit");
 

@@ -60,8 +60,8 @@ namespace Rest{
 			func(req, res);
 			chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
 			chrono::duration<double> elapsedTime = stopTime - startTime;
-			CLogger::Debug("REQUEST :  " + method_string + " " + dir + " - "
-				+ to_string(elapsedTime.count() * 1000) + "ms");
+			CLogger::Debug("REST REQUEST : %s %s - %dms",
+                  method_string.c_str(), dir.c_str(), elapsedTime.count() * 1000);
 		};
 	}
 

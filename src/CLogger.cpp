@@ -1,5 +1,8 @@
 #include "CLogger.hpp"
 
+#define MAX_BUF_SIZE 4096
+
+
 #if !(defined(_WIN32) || defined(_WIN64))
 //#include <unistd.h>
 //#include <term.h>
@@ -32,8 +35,6 @@ void SetConsoleTextColor(int foreground, int background) {
 #if defined(_WIN32) || defined(_WIN64)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
 		foreground + background * 16);
-#else
-    //TODO : cross platform
 #endif
 }
 
@@ -41,8 +42,6 @@ void SetConsoleTextColor(void) {
 #if defined(_WIN32) || defined(_WIN64)
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
 		LIGHTGRAY + BLACK * 16);
-#else
-    //TODO : cross platform
 #endif
 }
 
@@ -82,63 +81,88 @@ string CLogger::getTimeNow() {
 #else
 	localtime_r(&timeNow, &pLocal);
 #endif
-	if (&pLocal == NULL) {
+	if (&pLocal == nullptr) {
 		return "TIME_SHOW_ERROR";
 	}
 
-	return "[" + extSmNum((&pLocal)->tm_year + 1900) + "-" + 
+	return "[" + extSmNum((&pLocal)->tm_year + 1900) + "-" +
 		extSmNum((&pLocal)->tm_mon + 1) + "-" +
 		extSmNum((&pLocal)->tm_mday) + " " + extSmNum((&pLocal)->tm_hour) + ":" +
 		extSmNum((&pLocal)->tm_min) + ":" + extSmNum((&pLocal)->tm_sec) + "] ";
 }
 
-void CLogger::RawLogger(string mes) {
+void CLogger::RawLogger(const char * mes, ...) {
 	while (CLogger::isUsing);
 	CLogger::isUsing = true;
+
+    va_list ap;
+    char buf[MAX_BUF_SIZE];
+
+    va_start(ap, mes);
+    vsprintf(buf, mes, ap);
+    va_end(ap);
+
 #if defined(_WIN32) || defined(_WIN64)
     SetConsoleTextColor("time");
 	cout << CLogger::getTimeNow();
 	SetConsoleTextColor();
-	cout << mes << endl;
+	cout << buf << endl;
 #else
-	fprintf(stdout, "%s\x1b[47;30m RAWW \x1b[0m %s\n", CLogger::getTimeNow().c_str(), mes.c_str());
+	fprintf(stdout, "%s\x1b[0m%s\n", CLogger::getTimeNow().c_str(), buf);
 #endif
 	CLogger::isUsing = false;
 }
 
-void CLogger::Info(string mes) {
+void CLogger::Info(const char* mes, ...) {
 	while (CLogger::isUsing);
 	CLogger::isUsing = true;
+
+    va_list ap;
+    char buf[MAX_BUF_SIZE];
+
+    va_start(ap, mes);
+    vsprintf(buf, mes, ap);
+    va_end(ap);
+
 #if defined(_WIN32) || defined(_WIN64)
     SetConsoleTextColor("time");
 	cout << CLogger::getTimeNow();
 	SetConsoleTextColor(BLACK, LIGHTGRAY);
 	cout << " INFO ";
 	SetConsoleTextColor();
-	cout << " " << mes << endl;
+	cout << " " << buf << endl;
 #else
-    fprintf(stdout, "%s\x1b[47;30m INFO \x1b[0m %s\n", CLogger::getTimeNow().c_str(), mes.c_str());
+    fprintf(stdout, "%s\x1b[47;30m INFO \x1b[0m %s\n", CLogger::getTimeNow().c_str(), buf);
 #endif
 	CLogger::isUsing = false;
 }
 
-void CLogger::Error(string mes,
-	bool showErrorStackByDialogue) {
+void CLogger::Error(bool showErrorStackByDialogue,
+                    const char *mes, ...) {
 	while (CLogger::isUsing);
-#if defined(_WIN32) || defined(_WIN64)
     CLogger::isUsing = true;
+
+	va_list ap;
+	char buf[MAX_BUF_SIZE];
+
+    va_start(ap, mes);
+    vsprintf(buf, mes, ap);
+    va_end(ap);
+
+#if defined(_WIN32) || defined(_WIN64)
 	SetConsoleTextColor("time");
 	cout << CLogger::getTimeNow();
 	SetConsoleTextColor("error");
 	cout << " ERRR ";
 	SetConsoleTextColor("error_i");
-	cout << " " << mes << endl;
+    cout << buf << endl;
 	SetConsoleTextColor();
 #else
-	fprintf(stderr,"%s\x1b[30;41m ERRR \x1b[31;40m %s\x1b[0m\n", CLogger::getTimeNow().c_str(), mes.c_str());
+	fprintf(stderr,"%s\x1b[30;41m ERRR \x1b[31;40m %s\x1b[0m\n",
+         CLogger::getTimeNow().c_str(), buf);
 #endif
 
-	if (showErrorStackByDialogue == true) {
+	if (showErrorStackByDialogue) {
 #if defined(_WIN32) || defined(_WIN64)
 		wchar_t application_name[128] = L"", content[4096] = L"";
 		size_t application_name_size, content_size;
@@ -153,13 +177,24 @@ void CLogger::Error(string mes,
 	CLogger::isUsing = false;
 }
 
-void CLogger::Debug(string mes) {
+void CLogger::Error(const char* mes, ...) {
+    return CLogger::Error(false, mes);
+}
+
+void CLogger::Debug(const char * mes, ...) {
 	if (!ISDEBUGMODE) {
 		return;
 	}
 	
 	while (CLogger::isUsing);
 	CLogger::isUsing = true;
+
+    va_list ap;
+    char buf[MAX_BUF_SIZE];
+
+    va_start(ap, mes);
+    vsprintf(buf, mes, ap);
+    va_end(ap);
 
 #if defined(_WIN32) || defined(_WIN64)
 	SetConsoleTextColor("time");
@@ -170,7 +205,7 @@ void CLogger::Debug(string mes) {
 	cout << " " << mes << endl;
 	SetConsoleTextColor();
 #else
-	fprintf(stdout, "%s\x1b[30;46m DEBG \x1b[36;40m %s\x1b[0m\n", CLogger::getTimeNow().c_str(), mes.c_str());
+	fprintf(stdout, "%s\x1b[30;46m DEBG \x1b[36;40m %s\x1b[0m\n", CLogger::getTimeNow().c_str(), buf);
 #endif
 
 	CLogger::isUsing = false;
