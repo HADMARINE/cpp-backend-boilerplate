@@ -1,5 +1,11 @@
 #include "CLogger.hpp"
 
+#if !(defined(_WIN32) || defined(_WIN64))
+//#include <unistd.h>
+//#include <term.h>
+//#include <curses.h>
+#endif
+
 
 bool CLogger::isUsing = false;
 
@@ -67,9 +73,9 @@ void SetConsoleTextColor(string type) {
 	}
 }
 
-string CLogger::getTimeNow(void) {
-	time_t timeNow = time(NULL);
-	struct tm pLocal;
+string CLogger::getTimeNow() {
+	time_t timeNow = time(nullptr);
+	struct tm pLocal{};
 
 #if defined(_WIN32) || defined(_WIN64)
 	localtime_s(&pLocal, &timeNow);
@@ -89,29 +95,38 @@ string CLogger::getTimeNow(void) {
 void CLogger::RawLogger(string mes) {
 	while (CLogger::isUsing);
 	CLogger::isUsing = true;
-	SetConsoleTextColor("time");
+#if defined(_WIN32) || defined(_WIN64)
+    SetConsoleTextColor("time");
 	cout << CLogger::getTimeNow();
 	SetConsoleTextColor();
 	cout << mes << endl;
+#else
+	fprintf(stdout, "%s\x1b[47;30m RAWW \x1b[0m %s\n", CLogger::getTimeNow().c_str(), mes.c_str());
+#endif
 	CLogger::isUsing = false;
 }
 
 void CLogger::Info(string mes) {
 	while (CLogger::isUsing);
 	CLogger::isUsing = true;
-	SetConsoleTextColor("time");
+#if defined(_WIN32) || defined(_WIN64)
+    SetConsoleTextColor("time");
 	cout << CLogger::getTimeNow();
 	SetConsoleTextColor(BLACK, LIGHTGRAY);
 	cout << " INFO ";
 	SetConsoleTextColor();
 	cout << " " << mes << endl;
+#else
+    fprintf(stdout, "%s\x1b[47;30m INFO \x1b[0m %s\n", CLogger::getTimeNow().c_str(), mes.c_str());
+#endif
 	CLogger::isUsing = false;
 }
 
 void CLogger::Error(string mes,
 	bool showErrorStackByDialogue) {
 	while (CLogger::isUsing);
-	CLogger::isUsing = true;
+#if defined(_WIN32) || defined(_WIN64)
+    CLogger::isUsing = true;
 	SetConsoleTextColor("time");
 	cout << CLogger::getTimeNow();
 	SetConsoleTextColor("error");
@@ -119,17 +134,22 @@ void CLogger::Error(string mes,
 	SetConsoleTextColor("error_i");
 	cout << " " << mes << endl;
 	SetConsoleTextColor();
+#else
+	fprintf(stderr,"%s\x1b[30;41m ERRR \x1b[31;40m %s\x1b[0m\n", CLogger::getTimeNow().c_str(), mes.c_str());
+#endif
 
-#ifdef WIN32
 	if (showErrorStackByDialogue == true) {
+#if defined(_WIN32) || defined(_WIN64)
 		wchar_t application_name[128] = L"", content[4096] = L"";
 		size_t application_name_size, content_size;
 		mbstowcs_s(&application_name_size, application_name, 128, APPLICATION_NAME, 128);
 		mbstowcs_s(&content_size, content, 4096, mes.c_str(), 4096);
 		MessageBox(NULL, LPCWSTR(content),
 			LPCWSTR(application_name), MB_OK);
-	}
+#else
+        CLogger::Debug("CLogger::Error - ErrorStackDialogue is avaliable only in WINDOWS");
 #endif
+	}
 	CLogger::isUsing = false;
 }
 
@@ -141,6 +161,7 @@ void CLogger::Debug(string mes) {
 	while (CLogger::isUsing);
 	CLogger::isUsing = true;
 
+#if defined(_WIN32) || defined(_WIN64)
 	SetConsoleTextColor("time");
 	cout << CLogger::getTimeNow();
 	SetConsoleTextColor("debug");
@@ -148,6 +169,9 @@ void CLogger::Debug(string mes) {
 	SetConsoleTextColor("debug_i");
 	cout << " " << mes << endl;
 	SetConsoleTextColor();
+#else
+	fprintf(stdout, "%s\x1b[30;46m DEBG \x1b[36;40m %s\x1b[0m\n", CLogger::getTimeNow().c_str(), mes.c_str());
+#endif
 
 	CLogger::isUsing = false;
 }
@@ -175,6 +199,15 @@ void CLogger::ClearWindow() {
 	SetConsoleTextColor();
 	CLogger::isUsing = false;
 #else
-    //TODO : cross platform
+//    if (!cur_term)
+//    {
+//        int result;
+//        setupterm( nullptr, STDOUT_FILENO, &result );
+//        if (result <= 0) return;
+//    }
+//
+//    putp(tigetstr("clear"));
+    //TODO : Cross Platform
+    cout << string(20, '\n');
 #endif
 }

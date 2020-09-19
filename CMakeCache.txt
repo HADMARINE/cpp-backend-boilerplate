@@ -247,6 +247,9 @@ LIBRESTBED:FILEPATH=/usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/de
 LIBSSL:FILEPATH=/usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/debug/lib/libssl.a
 
 //Path to a library.
+LIBTERM:FILEPATH=/usr/local/Cellar/ncurses/6.2/lib/libncursesw.a
+
+//Path to a library.
 NAME:FILEPATH=/usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/debug/lib/librestbed.a
 
 //Path to a library.
@@ -284,6 +287,9 @@ RESTBED:FILEPATH=/usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/debug
 
 //The directory containing a CMake configuration file for RestBed.
 RestBed_DIR:PATH=RestBed_DIR-NOTFOUND
+
+//Path to a library.
+TERM:FILEPATH=TERM-NOTFOUND
 
 //Automatically copy dependencies into the output directory for
 // executables.

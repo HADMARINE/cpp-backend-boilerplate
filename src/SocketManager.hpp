@@ -18,8 +18,8 @@ namespace Socket{
 
 	class SocketCollector {
 	public:
-		//SocketCollector();
-		//~SocketCollector();
+//		SocketCollector();
+//		~SocketCollector();
 		static map<string, shared_ptr<WebSocket>> sockets;
 		static bool Initialize(Service&);
 	private:

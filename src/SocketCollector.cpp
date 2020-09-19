@@ -63,7 +63,7 @@ namespace Socket {
                             //socket->set_error_handler(error_handler);
                             //socket->set_message_handler(message_handler);
 
-                            socket->send("Welcome to Corvusoft Chat!", [](const shared_ptr< WebSocket > socket) {
+                            socket->send("CONNECTED", [](const shared_ptr< WebSocket > socket) {
                                 const auto key = socket->get_key();
                                 SocketCollector::sockets.insert(make_pair(key, socket));
 
@@ -78,6 +78,9 @@ namespace Socket {
                 }
             }
         });
+
+        service.publish(resource);
+
 		return true;
 	}
 }

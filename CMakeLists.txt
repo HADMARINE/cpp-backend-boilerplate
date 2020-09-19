@@ -30,31 +30,44 @@ add_executable(
 find_library(
         LIBRESTBED
         NAMES librestbed.a
-        HINTS /usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/lib
+        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
         REQUIRED
 )
 
 find_library(
         LIBJSONCPP
         NAMES libjsoncpp.a
-        HINTS /usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/lib
+        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
         REQUIRED
 )
 
 find_library(
         LIBCRYPTO
         NAMES libcrypto.a
-        HINTS /usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/lib
+        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
         REQUIRED
 )
 
 find_library(
         LIBSSL
         NAMES libssl.a
-        HINTS /usr/local/Cellar/vcpkg/2020.07/libexec/installed/x64-osx/lib
+        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
         REQUIRED
 )
 
-include_directories(/usr/local/var/vcpkg/installed/x64-osx/include)
+#find_library(
+#        LIBTERM
+#        NAMES libncursesw.a
+#        HINTS /usr/local/Cellar/ncurses/6.2/lib
+#        REQUIRED
+#)
 
-target_link_libraries(main ${LIBRESTBED} ${LIBJSONCPP} ${LIBSSL} ${LIBCRYPTO})
+include_directories($ENV{VCPKG_INSTALLED_DIR}/include)
+
+target_link_libraries(main
+        ${LIBRESTBED}
+        ${LIBJSONCPP}
+        ${LIBSSL}
+        ${LIBCRYPTO}
+#        ${LIBTERM}
+        )

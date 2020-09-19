@@ -43,3 +43,8 @@ Asymmetry encryption
 getRandomNumber
 REGEX (email, password, etc)
 JWT enc / dec / validation
+
+
++ add
+change Console color of ex-win environment === https://stackoverflow.com/questions/33309136/change-color-in-os-x-console-output
+cmake global var create VCPKG_INSTALLED_DIR
