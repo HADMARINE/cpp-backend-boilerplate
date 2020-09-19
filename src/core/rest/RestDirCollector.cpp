@@ -11,6 +11,16 @@ namespace Rest{
 	RestDirCollector::RestDirCollector(string dir) {
 		this->dir = std::move(dir);
 	}
+  
+  RestDirCollector::RestDirCollector(string dir, function<void(RestDirCollector*)> func ) {
+    this->dir = std::move(dir);
+    func(this);
+  }
+  
+  RestDirCollector::RestDirCollector(function<void(RestDirCollector*)> func) {
+    this->dir = "/";
+    func(this);
+  }
 
 	RestDirCollector::~RestDirCollector() {
 		CLogger::Debug("RestDirCollector closed. core : (%s)", this->dir.c_str());

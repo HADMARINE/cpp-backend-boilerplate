@@ -3,6 +3,7 @@
 #include "SocketManager.hpp"
 #include "Assets.hpp"
 #include <thread>
+#include "Parser.hpp"
 
 using namespace std;
 
@@ -41,11 +42,11 @@ int main() {
 	thread SocketCollectorThread(initializeSocketCollector);
 
 	RestDirCollectorThread.join();
-    SocketCollectorThread.join();
+  SocketCollectorThread.join();
 
-    thread RootServerThread(startServer);
+  thread RootServerThread(startServer);
 
-    CLogger::Info("Started %s at port %d", APPLICATION_NAME, PORT);
+  CLogger::Info("Started %s at port %d", APPLICATION_NAME, PORT);
 
 	Assets::pauseUntilKeyPressed("Press Enter to exit");
 

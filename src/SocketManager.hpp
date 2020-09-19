@@ -8,6 +8,7 @@
 #include <openssl/evp.h>
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
+#include "service_error.hpp"
 
 using namespace restbed;
 

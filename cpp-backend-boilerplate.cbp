@@ -112,6 +112,9 @@
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/restbed.hpp">
 			<Option target="main"/>
 		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/service_error.hpp">
+			<Option target="main"/>
+		</Unit>
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/stdafx.h">
 			<Option target="main"/>
 		</Unit>
@@ -125,6 +128,9 @@
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/util/Parser.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/util/service_error.cpp">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/CMakeLists.txt">

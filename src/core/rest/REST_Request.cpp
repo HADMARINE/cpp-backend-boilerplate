@@ -14,7 +14,7 @@ namespace Rest {
     char *buffer;
     session->fetch(content_length, [buffer](const shared_ptr<Session> session, const Bytes &body) {
 #if defined(_WIN32) || defined(_WIN64)
-      sprintf_s(buffer, 2147483647, "%.*s\n", (int) body.size(), body.data());
+          sprintf_s(buffer, 2147483647, "%.*s\n", (int) body.size(), body.data());
 #else
           snprintf(buffer, 2147483647, "%.*s\n", (int) body.size(), body.data());
 #endif
@@ -37,8 +37,13 @@ namespace Rest {
 
   template<typename T>
   T REQUEST::getParameter(string param, T default_value) {
-    const shared_ptr<const Request> request = this->session->get_request();
+    auto request = this->session->get_request();
     return request->get_path_parameter(param, default_value);
+  }
+
+  Json::Value REQUEST::getJson() {
+    auto request = this->session->get_request();
+    return Parser::parseStringToJson(this->getBody().c_str());
   }
 
   shared_ptr<Session> REQUEST::getRawSession() {

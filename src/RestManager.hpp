@@ -5,6 +5,8 @@
 #include "stdafx.h"
 #include "json/json.h"
 #include <chrono>
+#include "Parser.hpp"
+#include "service_error.hpp"
 
 using namespace std;
 using namespace restbed;
@@ -50,12 +52,10 @@ namespace Rest {
     ~REQUEST();
 
     string getBody();
-    template<typename T>
-    T getHeader(string, T);
-    template<typename T>
-    T getQuery(string, T);
-    template<typename T>
-    T getParameter(string, T);
+    Json::Value getJson();
+    template<typename T> T getHeader(string, T);
+    template<typename T> T getQuery(string, T);
+    template<typename T> T getParameter(string, T);
 
     shared_ptr<Session> getRawSession();
 
@@ -68,7 +68,7 @@ namespace Rest {
     explicit RESPONSE(shared_ptr<Session>);
     ~RESPONSE();
 
-    void send(HTTP_CODE, string);
+    void send(HTTP_CODE, const string&);
     void json(HTTP_CODE, Json::Value);
 
     shared_ptr<Session> getRawSession();
@@ -86,6 +86,9 @@ namespace Rest {
     static bool isMounted;
 
     explicit RestDirCollector(string = "/");
+    explicit RestDirCollector(function<void(RestDirCollector*)>);
+    explicit RestDirCollector(string, function<void(RestDirCollector*)>);
+    
     ~RestDirCollector();
 
     bool Append(REST_METHODS, const function<void(REQUEST, RESPONSE)> &,

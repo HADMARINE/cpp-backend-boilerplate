@@ -413,6 +413,33 @@ src/util/Parser.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/Parser.cpp.s
 .PHONY : src/util/Parser.cpp.s
 
+src/util/service_error.o: src/util/service_error.cpp.o
+
+.PHONY : src/util/service_error.o
+
+# target to build an object file
+src/util/service_error.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/service_error.cpp.o
+.PHONY : src/util/service_error.cpp.o
+
+src/util/service_error.i: src/util/service_error.cpp.i
+
+.PHONY : src/util/service_error.i
+
+# target to preprocess a source file
+src/util/service_error.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/service_error.cpp.i
+.PHONY : src/util/service_error.cpp.i
+
+src/util/service_error.s: src/util/service_error.cpp.s
+
+.PHONY : src/util/service_error.s
+
+# target to generate assembly for a file
+src/util/service_error.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/service_error.cpp.s
+.PHONY : src/util/service_error.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -452,6 +479,9 @@ help:
 	@echo "... src/util/Parser.o"
 	@echo "... src/util/Parser.i"
 	@echo "... src/util/Parser.s"
+	@echo "... src/util/service_error.o"
+	@echo "... src/util/service_error.i"
+	@echo "... src/util/service_error.s"
 .PHONY : help
 
 
