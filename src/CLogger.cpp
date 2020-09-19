@@ -137,8 +137,7 @@ void CLogger::Info(const char* mes, ...) {
 	CLogger::isUsing = false;
 }
 
-void CLogger::Error(bool showErrorStackByDialogue,
-                    const char *mes, ...) {
+void CLogger::ErrorWithDialog(const char *mes, ...) {
 	while (CLogger::isUsing);
     CLogger::isUsing = true;
 
@@ -162,7 +161,6 @@ void CLogger::Error(bool showErrorStackByDialogue,
          CLogger::getTimeNow().c_str(), buf);
 #endif
 
-	if (showErrorStackByDialogue) {
 #if defined(_WIN32) || defined(_WIN64)
 		wchar_t application_name[128] = L"", content[4096] = L"";
 		size_t application_name_size, content_size;
@@ -173,12 +171,33 @@ void CLogger::Error(bool showErrorStackByDialogue,
 #else
         CLogger::Debug("CLogger::Error - ErrorStackDialogue is avaliable only in WINDOWS");
 #endif
-	}
 	CLogger::isUsing = false;
 }
 
 void CLogger::Error(const char* mes, ...) {
-    return CLogger::Error(false, mes);
+    while (CLogger::isUsing);
+    CLogger::isUsing = true;
+
+    va_list ap;
+    char buf[MAX_BUF_SIZE];
+
+    va_start(ap, mes);
+    vsprintf(buf, mes, ap);
+    va_end(ap);
+
+#if defined(_WIN32) || defined(_WIN64)
+    SetConsoleTextColor("time");
+	cout << CLogger::getTimeNow();
+	SetConsoleTextColor("error");
+	cout << " ERRR ";
+	SetConsoleTextColor("error_i");
+    cout << buf << endl;
+	SetConsoleTextColor();
+#else
+    fprintf(stderr,"%s\x1b[30;41m ERRR \x1b[31;40m %s\x1b[0m\n",
+            CLogger::getTimeNow().c_str(), buf);
+#endif
+    CLogger::isUsing = false;
 }
 
 void CLogger::Debug(const char * mes, ...) {

@@ -22,7 +22,7 @@ public:
 	static bool isUsing;
 	static void RawLogger(const char *, ...);
 	static void Info(const char *, ...);
-	static void Error(bool, const char *, ...);
+	static void ErrorWithDialog(const char *, ...);
 	static void Error(const char *, ...);
 	static void Debug(const char *, ...);
 	static void ClearWindow();
