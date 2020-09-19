@@ -143,221 +143,167 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
-src/Assets.o: src/Assets.cpp.o
+src/core/rest/REST_Request.o: src/core/rest/REST_Request.cpp.o
 
-.PHONY : src/Assets.o
-
-# target to build an object file
-src/Assets.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Assets.cpp.o
-.PHONY : src/Assets.cpp.o
-
-src/Assets.i: src/Assets.cpp.i
-
-.PHONY : src/Assets.i
-
-# target to preprocess a source file
-src/Assets.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Assets.cpp.i
-.PHONY : src/Assets.cpp.i
-
-src/Assets.s: src/Assets.cpp.s
-
-.PHONY : src/Assets.s
-
-# target to generate assembly for a file
-src/Assets.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Assets.cpp.s
-.PHONY : src/Assets.cpp.s
-
-src/CLogger.o: src/CLogger.cpp.o
-
-.PHONY : src/CLogger.o
+.PHONY : src/core/rest/REST_Request.o
 
 # target to build an object file
-src/CLogger.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/CLogger.cpp.o
-.PHONY : src/CLogger.cpp.o
+src/core/rest/REST_Request.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_Request.cpp.o
+.PHONY : src/core/rest/REST_Request.cpp.o
 
-src/CLogger.i: src/CLogger.cpp.i
+src/core/rest/REST_Request.i: src/core/rest/REST_Request.cpp.i
 
-.PHONY : src/CLogger.i
+.PHONY : src/core/rest/REST_Request.i
 
 # target to preprocess a source file
-src/CLogger.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/CLogger.cpp.i
-.PHONY : src/CLogger.cpp.i
+src/core/rest/REST_Request.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_Request.cpp.i
+.PHONY : src/core/rest/REST_Request.cpp.i
 
-src/CLogger.s: src/CLogger.cpp.s
+src/core/rest/REST_Request.s: src/core/rest/REST_Request.cpp.s
 
-.PHONY : src/CLogger.s
+.PHONY : src/core/rest/REST_Request.s
 
 # target to generate assembly for a file
-src/CLogger.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/CLogger.cpp.s
-.PHONY : src/CLogger.cpp.s
+src/core/rest/REST_Request.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_Request.cpp.s
+.PHONY : src/core/rest/REST_Request.cpp.s
 
-src/Parser.o: src/Parser.cpp.o
+src/core/rest/REST_Response.o: src/core/rest/REST_Response.cpp.o
 
-.PHONY : src/Parser.o
+.PHONY : src/core/rest/REST_Response.o
 
 # target to build an object file
-src/Parser.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Parser.cpp.o
-.PHONY : src/Parser.cpp.o
+src/core/rest/REST_Response.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_Response.cpp.o
+.PHONY : src/core/rest/REST_Response.cpp.o
 
-src/Parser.i: src/Parser.cpp.i
+src/core/rest/REST_Response.i: src/core/rest/REST_Response.cpp.i
 
-.PHONY : src/Parser.i
+.PHONY : src/core/rest/REST_Response.i
 
 # target to preprocess a source file
-src/Parser.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Parser.cpp.i
-.PHONY : src/Parser.cpp.i
+src/core/rest/REST_Response.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_Response.cpp.i
+.PHONY : src/core/rest/REST_Response.cpp.i
 
-src/Parser.s: src/Parser.cpp.s
+src/core/rest/REST_Response.s: src/core/rest/REST_Response.cpp.s
 
-.PHONY : src/Parser.s
+.PHONY : src/core/rest/REST_Response.s
 
 # target to generate assembly for a file
-src/Parser.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/Parser.cpp.s
-.PHONY : src/Parser.cpp.s
+src/core/rest/REST_Response.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_Response.cpp.s
+.PHONY : src/core/rest/REST_Response.cpp.s
 
-src/REST_Request.o: src/REST_Request.cpp.o
+src/core/rest/REST_functions.o: src/core/rest/REST_functions.cpp.o
 
-.PHONY : src/REST_Request.o
+.PHONY : src/core/rest/REST_functions.o
 
 # target to build an object file
-src/REST_Request.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_Request.cpp.o
-.PHONY : src/REST_Request.cpp.o
+src/core/rest/REST_functions.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_functions.cpp.o
+.PHONY : src/core/rest/REST_functions.cpp.o
 
-src/REST_Request.i: src/REST_Request.cpp.i
+src/core/rest/REST_functions.i: src/core/rest/REST_functions.cpp.i
 
-.PHONY : src/REST_Request.i
+.PHONY : src/core/rest/REST_functions.i
 
 # target to preprocess a source file
-src/REST_Request.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_Request.cpp.i
-.PHONY : src/REST_Request.cpp.i
+src/core/rest/REST_functions.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_functions.cpp.i
+.PHONY : src/core/rest/REST_functions.cpp.i
 
-src/REST_Request.s: src/REST_Request.cpp.s
+src/core/rest/REST_functions.s: src/core/rest/REST_functions.cpp.s
 
-.PHONY : src/REST_Request.s
+.PHONY : src/core/rest/REST_functions.s
 
 # target to generate assembly for a file
-src/REST_Request.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_Request.cpp.s
-.PHONY : src/REST_Request.cpp.s
+src/core/rest/REST_functions.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/REST_functions.cpp.s
+.PHONY : src/core/rest/REST_functions.cpp.s
 
-src/REST_Response.o: src/REST_Response.cpp.o
+src/core/rest/RestDirCollector.o: src/core/rest/RestDirCollector.cpp.o
 
-.PHONY : src/REST_Response.o
+.PHONY : src/core/rest/RestDirCollector.o
 
 # target to build an object file
-src/REST_Response.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_Response.cpp.o
-.PHONY : src/REST_Response.cpp.o
+src/core/rest/RestDirCollector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/RestDirCollector.cpp.o
+.PHONY : src/core/rest/RestDirCollector.cpp.o
 
-src/REST_Response.i: src/REST_Response.cpp.i
+src/core/rest/RestDirCollector.i: src/core/rest/RestDirCollector.cpp.i
 
-.PHONY : src/REST_Response.i
+.PHONY : src/core/rest/RestDirCollector.i
 
 # target to preprocess a source file
-src/REST_Response.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_Response.cpp.i
-.PHONY : src/REST_Response.cpp.i
+src/core/rest/RestDirCollector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/RestDirCollector.cpp.i
+.PHONY : src/core/rest/RestDirCollector.cpp.i
 
-src/REST_Response.s: src/REST_Response.cpp.s
+src/core/rest/RestDirCollector.s: src/core/rest/RestDirCollector.cpp.s
 
-.PHONY : src/REST_Response.s
+.PHONY : src/core/rest/RestDirCollector.s
 
 # target to generate assembly for a file
-src/REST_Response.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_Response.cpp.s
-.PHONY : src/REST_Response.cpp.s
+src/core/rest/RestDirCollector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/RestDirCollector.cpp.s
+.PHONY : src/core/rest/RestDirCollector.cpp.s
 
-src/REST_functions.o: src/REST_functions.cpp.o
+src/core/socket/SocketCollector.o: src/core/socket/SocketCollector.cpp.o
 
-.PHONY : src/REST_functions.o
+.PHONY : src/core/socket/SocketCollector.o
 
 # target to build an object file
-src/REST_functions.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_functions.cpp.o
-.PHONY : src/REST_functions.cpp.o
+src/core/socket/SocketCollector.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SocketCollector.cpp.o
+.PHONY : src/core/socket/SocketCollector.cpp.o
 
-src/REST_functions.i: src/REST_functions.cpp.i
+src/core/socket/SocketCollector.i: src/core/socket/SocketCollector.cpp.i
 
-.PHONY : src/REST_functions.i
+.PHONY : src/core/socket/SocketCollector.i
 
 # target to preprocess a source file
-src/REST_functions.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_functions.cpp.i
-.PHONY : src/REST_functions.cpp.i
+src/core/socket/SocketCollector.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SocketCollector.cpp.i
+.PHONY : src/core/socket/SocketCollector.cpp.i
 
-src/REST_functions.s: src/REST_functions.cpp.s
+src/core/socket/SocketCollector.s: src/core/socket/SocketCollector.cpp.s
 
-.PHONY : src/REST_functions.s
+.PHONY : src/core/socket/SocketCollector.s
 
 # target to generate assembly for a file
-src/REST_functions.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/REST_functions.cpp.s
-.PHONY : src/REST_functions.cpp.s
+src/core/socket/SocketCollector.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SocketCollector.cpp.s
+.PHONY : src/core/socket/SocketCollector.cpp.s
 
-src/RestDirCollector.o: src/RestDirCollector.cpp.o
+src/exec/testdir.o: src/exec/testdir.cpp.o
 
-.PHONY : src/RestDirCollector.o
+.PHONY : src/exec/testdir.o
 
 # target to build an object file
-src/RestDirCollector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/RestDirCollector.cpp.o
-.PHONY : src/RestDirCollector.cpp.o
+src/exec/testdir.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/exec/testdir.cpp.o
+.PHONY : src/exec/testdir.cpp.o
 
-src/RestDirCollector.i: src/RestDirCollector.cpp.i
+src/exec/testdir.i: src/exec/testdir.cpp.i
 
-.PHONY : src/RestDirCollector.i
-
-# target to preprocess a source file
-src/RestDirCollector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/RestDirCollector.cpp.i
-.PHONY : src/RestDirCollector.cpp.i
-
-src/RestDirCollector.s: src/RestDirCollector.cpp.s
-
-.PHONY : src/RestDirCollector.s
-
-# target to generate assembly for a file
-src/RestDirCollector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/RestDirCollector.cpp.s
-.PHONY : src/RestDirCollector.cpp.s
-
-src/SocketCollector.o: src/SocketCollector.cpp.o
-
-.PHONY : src/SocketCollector.o
-
-# target to build an object file
-src/SocketCollector.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SocketCollector.cpp.o
-.PHONY : src/SocketCollector.cpp.o
-
-src/SocketCollector.i: src/SocketCollector.cpp.i
-
-.PHONY : src/SocketCollector.i
+.PHONY : src/exec/testdir.i
 
 # target to preprocess a source file
-src/SocketCollector.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SocketCollector.cpp.i
-.PHONY : src/SocketCollector.cpp.i
+src/exec/testdir.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/exec/testdir.cpp.i
+.PHONY : src/exec/testdir.cpp.i
 
-src/SocketCollector.s: src/SocketCollector.cpp.s
+src/exec/testdir.s: src/exec/testdir.cpp.s
 
-.PHONY : src/SocketCollector.s
+.PHONY : src/exec/testdir.s
 
 # target to generate assembly for a file
-src/SocketCollector.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/SocketCollector.cpp.s
-.PHONY : src/SocketCollector.cpp.s
+src/exec/testdir.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/exec/testdir.cpp.s
+.PHONY : src/exec/testdir.cpp.s
 
 src/main.o: src/main.cpp.o
 
@@ -386,32 +332,86 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
-src/testdir.o: src/testdir.cpp.o
+src/util/Assets.o: src/util/Assets.cpp.o
 
-.PHONY : src/testdir.o
+.PHONY : src/util/Assets.o
 
 # target to build an object file
-src/testdir.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/testdir.cpp.o
-.PHONY : src/testdir.cpp.o
+src/util/Assets.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/Assets.cpp.o
+.PHONY : src/util/Assets.cpp.o
 
-src/testdir.i: src/testdir.cpp.i
+src/util/Assets.i: src/util/Assets.cpp.i
 
-.PHONY : src/testdir.i
+.PHONY : src/util/Assets.i
 
 # target to preprocess a source file
-src/testdir.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/testdir.cpp.i
-.PHONY : src/testdir.cpp.i
+src/util/Assets.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/Assets.cpp.i
+.PHONY : src/util/Assets.cpp.i
 
-src/testdir.s: src/testdir.cpp.s
+src/util/Assets.s: src/util/Assets.cpp.s
 
-.PHONY : src/testdir.s
+.PHONY : src/util/Assets.s
 
 # target to generate assembly for a file
-src/testdir.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/testdir.cpp.s
-.PHONY : src/testdir.cpp.s
+src/util/Assets.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/Assets.cpp.s
+.PHONY : src/util/Assets.cpp.s
+
+src/util/CLogger.o: src/util/CLogger.cpp.o
+
+.PHONY : src/util/CLogger.o
+
+# target to build an object file
+src/util/CLogger.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/CLogger.cpp.o
+.PHONY : src/util/CLogger.cpp.o
+
+src/util/CLogger.i: src/util/CLogger.cpp.i
+
+.PHONY : src/util/CLogger.i
+
+# target to preprocess a source file
+src/util/CLogger.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/CLogger.cpp.i
+.PHONY : src/util/CLogger.cpp.i
+
+src/util/CLogger.s: src/util/CLogger.cpp.s
+
+.PHONY : src/util/CLogger.s
+
+# target to generate assembly for a file
+src/util/CLogger.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/CLogger.cpp.s
+.PHONY : src/util/CLogger.cpp.s
+
+src/util/Parser.o: src/util/Parser.cpp.o
+
+.PHONY : src/util/Parser.o
+
+# target to build an object file
+src/util/Parser.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/Parser.cpp.o
+.PHONY : src/util/Parser.cpp.o
+
+src/util/Parser.i: src/util/Parser.cpp.i
+
+.PHONY : src/util/Parser.i
+
+# target to preprocess a source file
+src/util/Parser.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/Parser.cpp.i
+.PHONY : src/util/Parser.cpp.i
+
+src/util/Parser.s: src/util/Parser.cpp.s
+
+.PHONY : src/util/Parser.s
+
+# target to generate assembly for a file
+src/util/Parser.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/util/Parser.cpp.s
+.PHONY : src/util/Parser.cpp.s
 
 # Help Target
 help:
@@ -422,36 +422,36 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... main"
-	@echo "... src/Assets.o"
-	@echo "... src/Assets.i"
-	@echo "... src/Assets.s"
-	@echo "... src/CLogger.o"
-	@echo "... src/CLogger.i"
-	@echo "... src/CLogger.s"
-	@echo "... src/Parser.o"
-	@echo "... src/Parser.i"
-	@echo "... src/Parser.s"
-	@echo "... src/REST_Request.o"
-	@echo "... src/REST_Request.i"
-	@echo "... src/REST_Request.s"
-	@echo "... src/REST_Response.o"
-	@echo "... src/REST_Response.i"
-	@echo "... src/REST_Response.s"
-	@echo "... src/REST_functions.o"
-	@echo "... src/REST_functions.i"
-	@echo "... src/REST_functions.s"
-	@echo "... src/RestDirCollector.o"
-	@echo "... src/RestDirCollector.i"
-	@echo "... src/RestDirCollector.s"
-	@echo "... src/SocketCollector.o"
-	@echo "... src/SocketCollector.i"
-	@echo "... src/SocketCollector.s"
+	@echo "... src/core/rest/REST_Request.o"
+	@echo "... src/core/rest/REST_Request.i"
+	@echo "... src/core/rest/REST_Request.s"
+	@echo "... src/core/rest/REST_Response.o"
+	@echo "... src/core/rest/REST_Response.i"
+	@echo "... src/core/rest/REST_Response.s"
+	@echo "... src/core/rest/REST_functions.o"
+	@echo "... src/core/rest/REST_functions.i"
+	@echo "... src/core/rest/REST_functions.s"
+	@echo "... src/core/rest/RestDirCollector.o"
+	@echo "... src/core/rest/RestDirCollector.i"
+	@echo "... src/core/rest/RestDirCollector.s"
+	@echo "... src/core/socket/SocketCollector.o"
+	@echo "... src/core/socket/SocketCollector.i"
+	@echo "... src/core/socket/SocketCollector.s"
+	@echo "... src/exec/testdir.o"
+	@echo "... src/exec/testdir.i"
+	@echo "... src/exec/testdir.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
-	@echo "... src/testdir.o"
-	@echo "... src/testdir.i"
-	@echo "... src/testdir.s"
+	@echo "... src/util/Assets.o"
+	@echo "... src/util/Assets.i"
+	@echo "... src/util/Assets.s"
+	@echo "... src/util/CLogger.o"
+	@echo "... src/util/CLogger.i"
+	@echo "... src/util/CLogger.s"
+	@echo "... src/util/Parser.o"
+	@echo "... src/util/Parser.i"
+	@echo "... src/util/Parser.s"
 .PHONY : help
 
 

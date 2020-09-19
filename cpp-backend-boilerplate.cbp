@@ -70,43 +70,34 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/Assets.cpp">
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/Assets.hpp">
 			<Option target="main"/>
 		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/CLogger.cpp">
-			<Option target="main"/>
-		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/CLogger.hpp">
-			<Option target="main"/>
-		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/Parser.cpp">
-			<Option target="main"/>
-		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/Parser.hpp">
-			<Option target="main"/>
-		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/REST_Request.cpp">
-			<Option target="main"/>
-		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/REST_Response.cpp">
-			<Option target="main"/>
-		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/REST_functions.cpp">
-			<Option target="main"/>
-		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/RestDirCollector.cpp">
-			<Option target="main"/>
-		</Unit>
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/RestManager.hpp">
 			<Option target="main"/>
 		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/SocketCollector.cpp">
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/SocketManager.hpp">
 			<Option target="main"/>
 		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/SocketManager.hpp">
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/core/rest/REST_Request.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/core/rest/REST_Response.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/core/rest/REST_functions.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/core/rest/RestDirCollector.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/core/socket/SocketCollector.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/exec/testdir.cpp">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/global_preferences.h">
@@ -127,7 +118,13 @@
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/targetver.h">
 			<Option target="main"/>
 		</Unit>
-		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/testdir.cpp">
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/util/Assets.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/util/CLogger.cpp">
+			<Option target="main"/>
+		</Unit>
+		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/src/util/Parser.cpp">
 			<Option target="main"/>
 		</Unit>
 		<Unit filename="/Users/hadmarine/develop/cpp-backend-boilerplate/CMakeLists.txt">

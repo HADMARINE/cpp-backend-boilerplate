@@ -7,7 +7,6 @@
 
 #include <stdio.h>
 #include <memory.h>
-//#include <tchar.h>
 #include <iostream>
 #include <functional>
 #include <string>

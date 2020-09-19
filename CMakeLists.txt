@@ -8,23 +8,24 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 add_executable(
         main
         src/main.cpp
-        src/CLogger.cpp
-        src/Parser.cpp
+        src/util/CLogger.cpp
+        src/util/Parser.cpp
         src/http_code.hpp
         src/global_preferences.h
         src/restbed.hpp
         src/stdafx.h
         src/targetver.h
-        src/REST_functions.cpp
-        src/REST_Request.cpp
-        src/REST_Response.cpp
+        src/core/rest/REST_functions.cpp
+        src/core/rest/REST_Request.cpp
+        src/core/rest/REST_Response.cpp
         src/RestManager.hpp
-        src/RestDirCollector.cpp
-        src/SocketCollector.cpp
+        src/core/rest/RestDirCollector.cpp
+        src/core/socket/SocketCollector.cpp
         src/SocketManager.hpp
-        src/testdir.cpp
-        src/Assets.cpp
+        src/exec/testdir.cpp
+        src/util/Assets.cpp
         src/Assets.hpp
+        src
 )
 
 find_library(
