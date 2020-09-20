@@ -69,7 +69,33 @@ namespace Rest {
     ~RESPONSE();
 
     void send(HTTP_CODE, const string&);
-    void json(HTTP_CODE, Json::Value);
+    template<typename T>
+    void json(HTTP_CODE code, T& data) {
+      auto request = this->session->get_request();
+      multimap<string, string> headers;
+    
+      string http_message = parse_http_code_to_string(code);
+    
+      Json::Value returnValue;
+    
+      returnValue["data"] = data;
+      returnValue["result"] = true;
+      returnValue["status"] = (int)code;
+      returnValue["message"] = http_message.c_str();
+    
+      replace(http_message.begin(), http_message.end(), ' ', '_');
+      for (auto & c: http_message) c = toupper(c);
+    
+      returnValue["code"] = http_message;
+    
+    
+      string str_data = Parser::parseJsonToString(std::move(returnValue));
+    
+      headers.insert(pair<string, string>("Content-Length",
+                                          to_string(strlen(str_data.c_str()))));
+      session->close(parse_http_code_to_int(code), str_data, headers);
+    }
+    void setHeader(string, string);
 
     shared_ptr<Session> getRawSession();
 

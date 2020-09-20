@@ -13,3 +13,4 @@
 #include <cstdlib>
 #include "global_preferences.h"
 #include "CLogger.hpp"
+#include <algorithm>

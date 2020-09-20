@@ -6,6 +6,8 @@
 #define CPP_BACKEND_BOILERPLATE_SERVICE_ERROR_HPP
 
 #include "stdafx.h"
+#include <json/json.h>
+#include "Parser.hpp"
 
 namespace ServiceError {
   enum class Error {
@@ -40,6 +42,7 @@ namespace ServiceError {
   };
   
   ErrorValue getErrorValue(Error);
+  Json::Value ErrorToJson(Error);
 }
 
 

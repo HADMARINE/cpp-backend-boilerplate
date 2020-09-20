@@ -104,17 +104,35 @@ namespace Rest{
 			for (const RestDirData& curRdd : *currFRDD->data) {
 				resource->set_method_handler(parse_method_str(curRdd.method), curRdd.func);
 			}
-
+   
 			service.publish(resource);
 
 			delete currFRDD;
 			currFRDD = nullptr;
 		}
+    
+    auto requestInvalidHandler = [=](shared_ptr<Session> session) {
+      auto request = session->get_request();
+      RESPONSE res(session);
+      CLogger::Debug("REST ERR : Page Not Found");
+      res.send(HTTP_CODE::NOT_FOUND, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::PAGE_NOT_FOUND)));
+    };
+    
+    auto requestErrorHandler = [=](const int errNum, const exception& exc, shared_ptr<Session> session) {
+      auto request = session->get_request();
+      RESPONSE res(session);
+      CLogger::Debug("REST ERR : Internal Server Error");
+      res.send(HTTP_CODE::NOT_FOUND, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
+    };
+    
+    service.set_not_found_handler(requestInvalidHandler);
+    service.set_method_not_implemented_handler(requestInvalidHandler);
+    service.set_error_handler(requestErrorHandler);
 
 		CLogger::Debug("Start Create listener and load endpoints...(3/3)...DONE!");
 
-        delete filteredRestDirData;
-        filteredRestDirData = nullptr;
+    delete filteredRestDirData;
+    filteredRestDirData = nullptr;
 
 		RestDirCollector::isMounted = true;
 

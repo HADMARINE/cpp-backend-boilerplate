@@ -46,4 +46,14 @@ namespace ServiceError {
         return ErrorValue{500, "Unknown Error", "INTERNAL_SERVER_ERROR"};
     }
   }
+  
+  Json::Value ErrorToJson(Error e) {
+    auto e_val = getErrorValue(e);
+    Json::Value val;
+    val["code"] = e_val.code;
+    val["message"] = e_val.message;
+    val["status"] = e_val.status;
+    val["result"] = false;
+    return val;
+  }
 }

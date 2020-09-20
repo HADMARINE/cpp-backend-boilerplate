@@ -11,11 +11,11 @@ res
 -send -> string =
 -header
 
-json parser = - jsoncpp
+json parser = - jsoncpp =
 
-error handler
+error handler =
 
-404 handler
+404 handler =
 
 DBMS handler
 
@@ -30,7 +30,7 @@ __WebSocket__
 
 use websocketpp? or use restbed?
 
-TCP / UDP connection 
+TCP / UDP connection -> Flag
 
 socket thread
 

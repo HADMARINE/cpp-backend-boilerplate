@@ -51,7 +51,9 @@ int main() {
 	Assets::pauseUntilKeyPressed("Press Enter to exit");
 
 	Rest::RestDirCollector::Shutdown();
-
+  
+  service.stop();
+  
 	RootServerThread.detach();
 
 	return 0;

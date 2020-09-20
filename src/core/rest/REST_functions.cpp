@@ -2,42 +2,49 @@
 
 namespace Rest {
   string parse_method_str(REST_METHODS method) {
-    string method_string;
-    if (method == REST_METHODS::GET) {
-      method_string = "GET";
-    } else if (method == REST_METHODS::POST) {
-      method_string = "POST";
-    } else if (method == REST_METHODS::CONNECT) {
-      method_string = "CONNECT";
-    } else if (method == REST_METHODS::DELETE) {
-      method_string = "DELETE";
-    } else if (method == REST_METHODS::HEAD) {
-      method_string = "HEAD";
-    } else if (method == REST_METHODS::MERGE) {
-      method_string = "MERGE";
-    } else if (method == REST_METHODS::OPTIONS) {
-      method_string = "OPTIONS";
-    } else if (method == REST_METHODS::PATCH) {
-      method_string = "PATCH";
-    } else if (method == REST_METHODS::PUT) {
-      method_string = "PUT";
-    } else if (method == REST_METHODS::TRACE) {
-      method_string = "TRACE";
-    } else {
-      CLogger::Error("parse_method_str caught unknown method");
-      method_string = "ERROR";
+    switch(method) {
+      case REST_METHODS::GET:
+        return "GET";
+      case REST_METHODS::POST:
+        return "POST";
+      case REST_METHODS::CONNECT:
+        return "CONNECT";
+      case REST_METHODS::DELETE:
+        return "DELETE";
+      case REST_METHODS::HEAD:
+        return "HEAD";
+      case REST_METHODS::OPTIONS:
+        return "OPTIONS";
+      case REST_METHODS::PATCH:
+        return "PATCH";
+      case REST_METHODS::PUT:
+        return "PUT";
+      case REST_METHODS::TRACE:
+        return "TRACE";
+      default:
+        CLogger::Error("parse_method_str caught unknown method");
+        return "ERROR";
     }
-    return method_string;
   }
 
   function<void(shared_ptr<Session>)>
   WRAP_FUNC(function<void(REQUEST, RESPONSE)> func,
-            initializer_list<REST_FLAGS> flags, REST_METHODS method, string dir) {
+            initializer_list<REST_FLAGS> flags,
+            REST_METHODS method, string dir) {
+    
+    
     if (!ISDEBUGMODE) {
       return [=](shared_ptr<Session> session) {
         REQUEST req(session);
         RESPONSE res(session);
-        return func(req, res);
+        try{
+          return func(req, res);
+        } catch(exception &e) {
+          res.send(HTTP_CODE::INTERNAL_SERVER_ERROR, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
+        } catch (ServiceError::Error e) {
+          auto v = ServiceError::ErrorToJson(e);
+          res.send((HTTP_CODE)v["status"].as<int>(), Parser::parseJsonToString(v));
+        }
       };
     }
 
@@ -45,19 +52,23 @@ namespace Rest {
 
     return [=](shared_ptr<Session> session) {
       chrono::steady_clock::time_point startTime = chrono::high_resolution_clock::now();
+      REQUEST req(session);
+      RESPONSE res(session);
       try {
-        REQUEST req(session);
-        RESPONSE res(session);
         func(req, res);
         chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
         chrono::duration<double> elapsedTime = stopTime - startTime;
-        CLogger::Debug("REST REQUEST : %s %s - %dms",
+        CLogger::Debug("REST REQUEST : %s %s - %.6fms",
                        method_string.c_str(), dir.c_str(),
                        elapsedTime.count() * 1000);
-      } catch (const std::exception e) {
-        CLogger::Error("%s", e.what())
-      } catch  {
-      
+      } catch(exception &e) {
+        res.send(HTTP_CODE::INTERNAL_SERVER_ERROR, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
+      } catch (ServiceError::Error &e) {
+        ServiceError::ErrorValue v = ServiceError::getErrorValue(e);
+        CLogger::Debug("REST ERR : %s %s - %d %s",
+                       method_string.c_str(), dir.c_str(),
+                       v.status, v.message.c_str());
+        res.send((HTTP_CODE)v.status, Parser::parseJsonToString(ServiceError::ErrorToJson(e)));
       }
     };
   }
