@@ -7,8 +7,11 @@ void test() {
 }
 
 void getHelloWorld(REQUEST req, RESPONSE res) {
-  test();
-  res.send(HTTP_CODE::OK, "HELLO WORLD");
+//  test();
+  Json::Value v;
+  v["HELLO"] = "WORLD";
+  v["TEST"] = "TALK";
+  res.json(HTTP_CODE::OK, v);
 }
 
 void postHelloWorld(REQUEST req, RESPONSE res) {

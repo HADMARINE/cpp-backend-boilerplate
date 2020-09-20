@@ -21,6 +21,8 @@ namespace Rest {
         return "PUT";
       case REST_METHODS::TRACE:
         return "TRACE";
+      case REST_METHODS::MERGE:
+        return "MERGE";
       default:
         CLogger::Error("parse_method_str caught unknown method");
         return "ERROR";
