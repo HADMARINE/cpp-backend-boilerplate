@@ -56,7 +56,7 @@ namespace Rest {
     template<typename T> T getHeader(string, T);
     template<typename T> T getQuery(string, T);
     template<typename T> T getParameter(string, T);
-
+  
     shared_ptr<Session> getRawSession();
 
   private:
@@ -103,7 +103,7 @@ namespace Rest {
     shared_ptr<Session> session;
   };
 
-  class RestDirCollector {
+  class RestManager {
   public:
     static bool Initialize(Service &);
     static bool Shutdown();
@@ -111,11 +111,11 @@ namespace Rest {
     static vector<RestDirData> *dirData;
     static bool isMounted;
 
-    explicit RestDirCollector(string = "/");
-    explicit RestDirCollector(function<void(RestDirCollector*)>);
-    explicit RestDirCollector(string, function<void(RestDirCollector*)>);
+    explicit RestManager(string = "/");
+    explicit RestManager(function<void(RestManager *)>);
+    explicit RestManager(string, function<void(RestManager *)>);
     
-    ~RestDirCollector();
+    ~RestManager();
 
     bool Append(REST_METHODS, const function<void(REQUEST, RESPONSE)> &,
                 initializer_list<REST_FLAGS> = {});
