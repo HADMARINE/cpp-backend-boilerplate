@@ -9,6 +9,8 @@
 //#include <curses.h>
 #endif
 
+using namespace std;
+
 
 bool CLogger::isUsing = false;
 
@@ -198,7 +200,7 @@ void CLogger::Error(const char *mes, ...) {
 }
 
 void CLogger::Debug(const char *mes, ...) {
-  if (!ISDEBUGMODE) {
+  if (!GlobalPrefences::ISDEBUGMODE) {
     return;
   }
 
