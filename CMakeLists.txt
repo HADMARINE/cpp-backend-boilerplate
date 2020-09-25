@@ -11,7 +11,7 @@ add_executable(
     src/util/CLogger.cpp
     src/util/Parser.cpp
     src/http_code.hpp
-    src/global_preferences.h
+    src/GlobalPrefences.hpp
     src/restbed.hpp
     src/stdafx.h
     src/targetver.h
@@ -26,7 +26,7 @@ add_executable(
     src/util/Assets.cpp
     src/Assets.hpp
     src
-    src/service_error.hpp src/util/service_error.cpp)
+    src/service_error.hpp src/util/service_error.cpp src/core/socket/SOCKET_Request.cpp src/core/socket/SOCKET_Response.cpp src/exec/testSocket.cpp)
 
 find_library(
         LIBRESTBED

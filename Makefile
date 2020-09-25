@@ -251,6 +251,60 @@ src/core/rest/RestDirCollector.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/rest/RestDirCollector.cpp.s
 .PHONY : src/core/rest/RestDirCollector.cpp.s
 
+src/core/socket/SOCKET_Request.o: src/core/socket/SOCKET_Request.cpp.o
+
+.PHONY : src/core/socket/SOCKET_Request.o
+
+# target to build an object file
+src/core/socket/SOCKET_Request.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SOCKET_Request.cpp.o
+.PHONY : src/core/socket/SOCKET_Request.cpp.o
+
+src/core/socket/SOCKET_Request.i: src/core/socket/SOCKET_Request.cpp.i
+
+.PHONY : src/core/socket/SOCKET_Request.i
+
+# target to preprocess a source file
+src/core/socket/SOCKET_Request.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SOCKET_Request.cpp.i
+.PHONY : src/core/socket/SOCKET_Request.cpp.i
+
+src/core/socket/SOCKET_Request.s: src/core/socket/SOCKET_Request.cpp.s
+
+.PHONY : src/core/socket/SOCKET_Request.s
+
+# target to generate assembly for a file
+src/core/socket/SOCKET_Request.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SOCKET_Request.cpp.s
+.PHONY : src/core/socket/SOCKET_Request.cpp.s
+
+src/core/socket/SOCKET_Response.o: src/core/socket/SOCKET_Response.cpp.o
+
+.PHONY : src/core/socket/SOCKET_Response.o
+
+# target to build an object file
+src/core/socket/SOCKET_Response.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SOCKET_Response.cpp.o
+.PHONY : src/core/socket/SOCKET_Response.cpp.o
+
+src/core/socket/SOCKET_Response.i: src/core/socket/SOCKET_Response.cpp.i
+
+.PHONY : src/core/socket/SOCKET_Response.i
+
+# target to preprocess a source file
+src/core/socket/SOCKET_Response.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SOCKET_Response.cpp.i
+.PHONY : src/core/socket/SOCKET_Response.cpp.i
+
+src/core/socket/SOCKET_Response.s: src/core/socket/SOCKET_Response.cpp.s
+
+.PHONY : src/core/socket/SOCKET_Response.s
+
+# target to generate assembly for a file
+src/core/socket/SOCKET_Response.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SOCKET_Response.cpp.s
+.PHONY : src/core/socket/SOCKET_Response.cpp.s
+
 src/core/socket/SocketCollector.o: src/core/socket/SocketCollector.cpp.o
 
 .PHONY : src/core/socket/SocketCollector.o
@@ -277,6 +331,33 @@ src/core/socket/SocketCollector.s: src/core/socket/SocketCollector.cpp.s
 src/core/socket/SocketCollector.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/core/socket/SocketCollector.cpp.s
 .PHONY : src/core/socket/SocketCollector.cpp.s
+
+src/exec/testSocket.o: src/exec/testSocket.cpp.o
+
+.PHONY : src/exec/testSocket.o
+
+# target to build an object file
+src/exec/testSocket.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/exec/testSocket.cpp.o
+.PHONY : src/exec/testSocket.cpp.o
+
+src/exec/testSocket.i: src/exec/testSocket.cpp.i
+
+.PHONY : src/exec/testSocket.i
+
+# target to preprocess a source file
+src/exec/testSocket.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/exec/testSocket.cpp.i
+.PHONY : src/exec/testSocket.cpp.i
+
+src/exec/testSocket.s: src/exec/testSocket.cpp.s
+
+.PHONY : src/exec/testSocket.s
+
+# target to generate assembly for a file
+src/exec/testSocket.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/src/exec/testSocket.cpp.s
+.PHONY : src/exec/testSocket.cpp.s
 
 src/exec/testdir.o: src/exec/testdir.cpp.o
 
@@ -461,9 +542,18 @@ help:
 	@echo "... src/core/rest/RestDirCollector.o"
 	@echo "... src/core/rest/RestDirCollector.i"
 	@echo "... src/core/rest/RestDirCollector.s"
+	@echo "... src/core/socket/SOCKET_Request.o"
+	@echo "... src/core/socket/SOCKET_Request.i"
+	@echo "... src/core/socket/SOCKET_Request.s"
+	@echo "... src/core/socket/SOCKET_Response.o"
+	@echo "... src/core/socket/SOCKET_Response.i"
+	@echo "... src/core/socket/SOCKET_Response.s"
 	@echo "... src/core/socket/SocketCollector.o"
 	@echo "... src/core/socket/SocketCollector.i"
 	@echo "... src/core/socket/SocketCollector.s"
+	@echo "... src/exec/testSocket.o"
+	@echo "... src/exec/testSocket.i"
+	@echo "... src/exec/testSocket.s"
 	@echo "... src/exec/testdir.o"
 	@echo "... src/exec/testdir.i"
 	@echo "... src/exec/testdir.s"
