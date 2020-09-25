@@ -42,7 +42,7 @@ namespace ServiceError {
       case Error::DB_ERROR:
         return ErrorValue{500, "DB Error" , "DB_ERROR"};
       default:
-        CLogger::Error("service_error-getErrorValue : Error value undefined.");
+        CLogger::Error("service_error - getErrorValue : Error value undefined.");
         return ErrorValue{500, "Unknown Error", "INTERNAL_SERVER_ERROR"};
     }
   }
