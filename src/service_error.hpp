@@ -37,8 +37,8 @@ namespace ServiceError {
   
   struct ErrorValue {
     int status;
-    string message;
-    string code;
+    std::string message;
+    std::string code;
   };
   
   ErrorValue getErrorValue(Error);
