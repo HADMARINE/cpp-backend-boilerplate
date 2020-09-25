@@ -1,9 +1,9 @@
-#include "stdafx.h"
+#include "Assets.hpp"
+#include "Parser.hpp"
 #include "RestManager.hpp"
 #include "SocketManager.hpp"
-#include "Assets.hpp"
+#include "stdafx.h"
 #include <thread>
-#include "Parser.hpp"
 
 using namespace std;
 
@@ -12,49 +12,49 @@ Service service;
 shared_ptr<Settings> settings = make_shared<Settings>();
 
 int initializeRestDirCollector() {
-	if (!Rest::RestDirCollector::Initialize(service)) {
-		CLogger::Error("Failed to initialize RestDirCollector");
-		return -1;
-	}
-	return 0;
+  if (!Rest::RestManager::Initialize(service)) {
+    CLogger::Error("Failed to initialize RestManager");
+    return -1;
+  }
+  return 0;
 }
 
 int initializeSocketCollector() {
-	if (!Socket::SocketCollector::Initialize(service)) {
-        CLogger::Error("Failed to initialize SocketCollector");
-        return -1;
-    }
-	return 0;
+  if (!Socket::SocketManager::Initialize(service)) {
+    CLogger::Error("Failed to initialize SocketCollector");
+    return -1;
+  }
+  return 0;
 }
 
 void startServer() {
-    service.start(settings);
+  service.start(settings);
 }
 
 
 int main() {
-    CLogger::Info("Loading Backend API ... (%s)", APPLICATION_NAME);
+  CLogger::Info("Loading Backend API ... (%s)", GlobalPrefences::APPLICATION_NAME);
 
-	settings->set_port(PORT);
-	settings->set_worker_limit(REST_WORKER_LIMIT);
+  settings->set_port(GlobalPrefences::PORT);
+  settings->set_worker_limit(GlobalPrefences::REST_WORKER_LIMIT);
 
-	thread RestDirCollectorThread(initializeRestDirCollector);
-	thread SocketCollectorThread(initializeSocketCollector);
+  thread RestDirCollectorThread(initializeRestDirCollector);
+  thread SocketCollectorThread(initializeSocketCollector);
 
-	RestDirCollectorThread.join();
+  RestDirCollectorThread.join();
   SocketCollectorThread.join();
 
   thread RootServerThread(startServer);
 
-  CLogger::Info("Started %s at port %d", APPLICATION_NAME, PORT);
+  CLogger::Info("Started %s at port %d", GlobalPrefences::APPLICATION_NAME, GlobalPrefences::PORT);
 
-	Assets::pauseUntilKeyPressed("Press Enter to exit");
+  Assets::pauseUntilKeyPressed("Press Enter to exit");
 
-	Rest::RestDirCollector::Shutdown();
-  
+  Rest::RestManager::Shutdown();
+
   service.stop();
-  
-	RootServerThread.detach();
 
-	return 0;
+  RootServerThread.detach();
+
+  return 0;
 }
