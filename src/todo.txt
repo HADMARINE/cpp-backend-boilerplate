@@ -27,12 +27,19 @@ JWT Middleware
 
 
 __WebSocket__
-
-use websocketpp? or use restbed?
-
 TCP / UDP connection -> Flag
 
-socket thread
+socket thread -> maybe not needed
+
+===methods
+
+on
+
+emit
+
+broadcast
+
+to
 
 
 __UTIL__
