@@ -5,7 +5,7 @@
 
 class Parser {
 public:
-	static wstring parseStringToWstring(const string);
-  static Json::Value parseStringToJson(const string);
-  static string parseJsonToString(const Json::Value);
+	static std::wstring parseStringToWstring(const std::string);
+  static Json::Value parseStringToJson(const std::string);
+  static std::string parseJsonToString(const Json::Value);
 };
