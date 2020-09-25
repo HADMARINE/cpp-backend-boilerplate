@@ -1,6 +1,7 @@
 #include "../Parser.hpp"
 
 using namespace Json;
+using namespace std;
 
 wstring Parser::parseStringToWstring(const string str) {
   wstring *wstr = new wstring;
@@ -9,22 +10,18 @@ wstring Parser::parseStringToWstring(const string str) {
 };
 
 Value Parser::parseStringToJson(const string str) {
-  CharReaderBuilder rbuilder;
-  string errs;
-  Value val;
-  stringstream ss;
+  const auto stringLength = static_cast<int>(str.length());
+  JSONCPP_STRING err;
+  Value root;
   
-  ss << str;
-  
-  rbuilder["collectComments"] = false;
-  
-  bool isSuccess = parseFromStream(rbuilder, ss, &val, &errs);
-  
-  if(!isSuccess) {
-    CLogger::Error("%s", errs.c_str());
+  CharReaderBuilder builder;
+  const unique_ptr<CharReader> reader(builder.newCharReader());
+  if (!reader->parse(str.c_str(), str.c_str() + stringLength, &root,
+                     &err)) {
+    CLogger::Debug("Failed to parse json string");
+    throw runtime_error("Failed to parse json string");
   }
-  
-  return nullptr;
+  return root;
 }
 
 string Parser::parseJsonToString(const Value val) {
