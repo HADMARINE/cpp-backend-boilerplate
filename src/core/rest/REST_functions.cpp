@@ -35,7 +35,7 @@ namespace Rest {
             REST_METHODS method, string dir) {
     
     
-    if (!ISDEBUGMODE) {
+    if (!GlobalPrefences::ISDEBUGMODE) {
       return [=](shared_ptr<Session> session) {
         REQUEST req(session);
         RESPONSE res(session);

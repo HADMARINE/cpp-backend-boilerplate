@@ -5,42 +5,42 @@
 #include "../../Parser.hpp"
 
 namespace Rest{
-	vector<RestDirData>* RestDirCollector::dirData = new vector<RestDirData>;
-	bool RestDirCollector::isMounted = false;
+	vector<RestDirData>*RestManager::dirData = new vector<RestDirData>;
+	bool RestManager::isMounted = false;
 
-	RestDirCollector::RestDirCollector(string dir) {
+  RestManager::RestManager(string dir) {
 		this->dir = std::move(dir);
 	}
-  
-  RestDirCollector::RestDirCollector(string dir, function<void(RestDirCollector*)> func ) {
+
+  RestManager::RestManager(string dir, function<void(RestManager *)> func ) {
     this->dir = std::move(dir);
     func(this);
   }
-  
-  RestDirCollector::RestDirCollector(function<void(RestDirCollector*)> func) {
+
+  RestManager::RestManager(function<void(RestManager *)> func) {
     this->dir = "/";
     func(this);
   }
 
-	RestDirCollector::~RestDirCollector() {
-		CLogger::Debug("RestDirCollector closed. core : (%s)", this->dir.c_str());
+  RestManager::~RestManager() {
+		CLogger::Debug("RestManager closed. core : (%s)", this->dir.c_str());
 	}
 
-	bool RestDirCollector::Initialize(Service &service) {
+	bool RestManager::Initialize(Service &service) {
 
-		if (RestDirCollector::isMounted) {
-			CLogger::Error("RestDirCollector has been mounted already!");
+		if (RestManager::isMounted) {
+			CLogger::Error("RestManager has been mounted already!");
 			return false;
 		}
 
 		CLogger::Debug("Mounting Started.");
 
-		CLogger::Debug("Start Collecting endpoints of RestDirCollector...(1/3)");
+		CLogger::Debug("Start Collecting endpoints of RestManager...(1/3)");
 
 		auto* dirCollections = new vector<string>;
 
-		// Collect all endpoints of RestDirCollector
-		for (auto & i : *RestDirCollector::dirData) {
+		// Collect all endpoints of RestManager
+		for (auto & i : *RestManager::dirData) {
 			bool isContained = false;
 			for (auto & dirCollection : *dirCollections) {
 				if (dirCollection == i.location) {
@@ -53,7 +53,7 @@ namespace Rest{
 			}
 		}
 
-		CLogger::Debug("Start Collecting endpoints of RestDirCollector...(1/3)...DONE!");
+		CLogger::Debug("Start Collecting endpoints of RestManager...(1/3)...DONE!");
 
 		CLogger::Debug("Start Filtering RestDirData by location...(2/3)");
 
@@ -66,7 +66,7 @@ namespace Rest{
 
 			auto* currRddData = new vector<RestDirData>;
 
-			for (auto & ii : *RestDirCollector::dirData) {
+			for (auto & ii : *RestManager::dirData) {
 
 				auto* currRdd = new RestDirData;
 				*currRdd = ii;
@@ -134,44 +134,44 @@ namespace Rest{
     delete filteredRestDirData;
     filteredRestDirData = nullptr;
 
-		RestDirCollector::isMounted = true;
+    RestManager::isMounted = true;
 
-		CLogger::Debug("RestDirCollector STARTED");
+		CLogger::Debug("RestManager STARTED");
 
 		return true;
 	}
 
-	bool RestDirCollector::Append(REST_METHODS method,
+	bool RestManager::Append(REST_METHODS method,
 		const function<void(REQUEST, RESPONSE)>& func,
 		initializer_list<REST_FLAGS> flags) {
-		return RestDirCollector::Append("", method, func, flags);
+		return RestManager::Append("", method, func, flags);
 	}
 
-	bool RestDirCollector::Append(
+	bool RestManager::Append(
 		string dir,
 		REST_METHODS method,
 		const function<void(REQUEST, RESPONSE)>& func,
 		initializer_list<REST_FLAGS> flags) {
-		if (Rest::RestDirCollector::isMounted) {
-			CLogger::Error("RestDirCollector can not append any routes since mounted! Shutdown RestDirCollector first.");
+		if (Rest::RestManager::isMounted) {
+			CLogger::Error("RestManager can not append any routes since mounted! Shutdown RestManager first.");
 			return false;
 		}
 
 		string newDir = this->dir + dir;
 
 		CLogger::Debug("APPEND PROCESSED - DIR : %s", newDir.c_str());
-		RestDirCollector::dirData->push_back(
+    RestManager::dirData->push_back(
 			RestDirData{ method, WRAP_FUNC(func, flags, method, newDir), newDir }
 		);
 		CLogger::Debug("APPEND PROCESS COMPLETE");
 		return true;
 	}
 
-	bool RestDirCollector::Shutdown() {
+	bool RestManager::Shutdown() {
 		CLogger::Debug("SHUTDOWN PROCESS STARTED");
 
-		RestDirCollector::dirData->clear();
-		RestDirCollector::isMounted = false;
+    RestManager::dirData->clear();
+    RestManager::isMounted = false;
 
 		CLogger::Debug("SHUTDOWN PROCESS COMPLETE");
 		return true;
