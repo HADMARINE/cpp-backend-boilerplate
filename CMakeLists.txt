@@ -7,6 +7,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 add_executable(
     main
+    src
     src/main.cpp
     src/util/CLogger.cpp
     src/util/Parser.cpp
@@ -25,35 +26,39 @@ add_executable(
     src/exec/testdir.cpp
     src/util/Assets.cpp
     src/Assets.hpp
-    src
-    src/service_error.hpp src/util/service_error.cpp src/core/socket/SOCKET_Request.cpp src/core/socket/SOCKET_Response.cpp src/exec/testSocket.cpp)
-
-find_library(
-        LIBRESTBED
-        NAMES librestbed.a
-        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
-        REQUIRED
+    src/service_error.hpp
+    src/util/service_error.cpp
+    src/core/socket/SOCKET_Request.cpp
+    src/core/socket/SOCKET_Response.cpp
+    src/exec/testSocket.cpp
 )
 
 find_library(
-        LIBJSONCPP
-        NAMES libjsoncpp.a
-        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
-        REQUIRED
+    LIBRESTBED
+    NAMES librestbed.a
+    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
+    REQUIRED
 )
 
 find_library(
-        LIBCRYPTO
-        NAMES libcrypto.a
-        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
-        REQUIRED
+    LIBJSONCPP
+    NAMES libjsoncpp.a
+    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
+    REQUIRED
 )
 
 find_library(
-        LIBSSL
-        NAMES libssl.a
-        HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
-        REQUIRED
+    LIBCRYPTO
+    NAMES libcrypto.a
+    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
+    REQUIRED
+)
+
+find_library(
+    LIBSSL
+    NAMES libssl.a
+    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
+    REQUIRED
 )
 
 #find_library(
@@ -66,9 +71,9 @@ find_library(
 include_directories($ENV{VCPKG_INSTALLED_DIR}/include)
 
 target_link_libraries(main
-        ${LIBRESTBED}
-        ${LIBJSONCPP}
-        ${LIBSSL}
-        ${LIBCRYPTO}
+                      ${LIBRESTBED}
+                      ${LIBJSONCPP}
+                      ${LIBSSL}
+                      ${LIBCRYPTO}
 #        ${LIBTERM}
-        )
+                      )
