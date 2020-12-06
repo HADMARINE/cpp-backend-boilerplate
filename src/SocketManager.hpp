@@ -9,7 +9,7 @@
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
 #include "service_error.hpp"
-#include "Parser.hpp"
+#include "Assets.hpp"
 
 
 namespace Socket{
@@ -76,12 +76,5 @@ namespace Socket{
     static void messageHandler(const shared_ptr<WebSocket>&, const shared_ptr<WebSocketMessage>&);
     static void closeHandler(const shared_ptr<WebSocket>&);
     static void errorHandler(const shared_ptr<WebSocket>&, error_code);
-//    string getEvent() {
-//        return this->event;
-//    };
-//  private:
-//		string event;
   };
-  
-  function<void(shared_ptr<Session>)> WRAP_FUNC(function<void(REQUEST, RESPONSE)>);
 }
