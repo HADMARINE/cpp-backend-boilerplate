@@ -1,7 +1,7 @@
 #include <utility>
 
-#include "../../stdafx.h"
 #include "../../RestManager.hpp"
+#include "../../pch.hpp"
 
 namespace Rest{
 	vector<RestDirData>*RestManager::dirData = new vector<RestDirData>;
