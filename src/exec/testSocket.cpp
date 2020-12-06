@@ -6,9 +6,14 @@
 
 using namespace Socket;
 
-void getTest(REQUEST req, RESPONSE res) {
-  auto data = req.getJson();
-  res.emit_str("test");
+
+void errorTest(REQUEST req, RESPONSE res) {
+  throw ServiceError::Error::DB_ERROR;
 }
 
-auto sm = new SocketManager("test", getTest);
+auto sm1 = new SocketManager("test", [](REQUEST req, RESPONSE res) {
+  auto data = req.getJson();
+  res.emit_json(data);
+});
+
+auto sm2 = new SocketManager("hello", errorTest);

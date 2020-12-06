@@ -4,7 +4,6 @@ using namespace Rest;
 
 
 void getHelloWorld(REQUEST req, RESPONSE res) {
-  //  test();
   Json::Value v;
   v["HELLO"] = "WORLD";
   v["TEST"] = "TALK";
@@ -16,12 +15,13 @@ void postHelloWorld(REQUEST req, RESPONSE res) {
 }
 
 void deleteHelloWorld(REQUEST req, RESPONSE res) {
+  auto authToken = req.getHeader("Authorization");
   res.send(HTTP_CODE::OK, "DELETE WORLD");
 }
 
 auto *rdc = new RestManager("/testdir", [](RestManager *t) {
-  t->Append(REST_METHODS::GET, getHelloWorld);
-  t->Append(REST_METHODS::POST, postHelloWorld);
+  t->Append(REST_METHODS::GET, getHelloWorld, {REST_FLAGS::VERIFY_JWT_USER});
+  t->Append(REST_METHODS::POST, postHelloWorld, {REST_FLAGS::VERIFY_JWT_USER});
   t->Append(REST_METHODS::DELETE, deleteHelloWorld);
 });
 
