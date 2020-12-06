@@ -7,11 +7,11 @@
 
 #include "stdafx.h"
 #include <json/json.h>
-#include "Parser.hpp"
 
 namespace ServiceError {
   enum class Error {
     PAGE_NOT_FOUND,
+    EVENT_NOT_FOUND,
     INTERNAL_SERVER_ERROR,
     TOO_MANY_REQUESTS,
     
