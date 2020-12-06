@@ -2,7 +2,6 @@
 
 #include "../../stdafx.h"
 #include "../../RestManager.hpp"
-#include "../../Parser.hpp"
 
 namespace Rest{
 	vector<RestDirData>*RestManager::dirData = new vector<RestDirData>;
@@ -115,14 +114,14 @@ namespace Rest{
       auto request = session->get_request();
       RESPONSE res(session);
       CLogger::Debug("REST ERR : Page Not Found");
-      res.send(HTTP_CODE::NOT_FOUND, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::PAGE_NOT_FOUND)));
+      res.send(HTTP_CODE::NOT_FOUND, Assets::Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::PAGE_NOT_FOUND)));
     };
     
     auto requestErrorHandler = [=](const int errNum, const exception& exc, shared_ptr<Session> session) {
       auto request = session->get_request();
       RESPONSE res(session);
       CLogger::Debug("REST ERR : Internal Server Error");
-      res.send(HTTP_CODE::NOT_FOUND, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
+      res.send(HTTP_CODE::NOT_FOUND, Assets::Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
     };
     
     service.set_not_found_handler(requestInvalidHandler);
