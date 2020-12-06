@@ -1,12 +1,11 @@
 #include "Assets.hpp"
-#include "Parser.hpp"
 #include "RestManager.hpp"
 #include "SocketManager.hpp"
-#include "stdafx.h"
+#include "pch.hpp"
 #include <thread>
 
 using namespace std;
-
+using namespace restbed;
 
 Service service;
 shared_ptr<Settings> settings = make_shared<Settings>();
@@ -33,10 +32,16 @@ void startServer() {
 
 
 int main() {
-  CLogger::Info("Loading Backend API ... (%s)", GlobalPrefences::APPLICATION_NAME);
+//  Json::Value v;
+//  v["TEST"] = 1;
+//  auto iv = v.begin()->asInt();
+//  auto ivK = v.begin().key().asString();
+//  std::cout << iv << " " << ivK << std::endl;
+  
+  CLogger::Info("Loading Backend API ... (%s)", GlobalPreferences::APPLICATION_NAME);
 
-  settings->set_port(GlobalPrefences::PORT);
-  settings->set_worker_limit(GlobalPrefences::REST_WORKER_LIMIT);
+  settings->set_port(GlobalPreferences::PORT);
+  settings->set_worker_limit(GlobalPreferences::REST_WORKER_LIMIT);
 
   thread RestDirCollectorThread(initializeRestDirCollector);
   thread SocketCollectorThread(initializeSocketCollector);
@@ -46,7 +51,7 @@ int main() {
 
   thread RootServerThread(startServer);
 
-  CLogger::Info("Started %s at port %d", GlobalPrefences::APPLICATION_NAME, GlobalPrefences::PORT);
+  CLogger::Success("Started %s at port %d", GlobalPreferences::APPLICATION_NAME, GlobalPreferences::PORT);
 
   Assets::pauseUntilKeyPressed("Press Enter to exit");
 
