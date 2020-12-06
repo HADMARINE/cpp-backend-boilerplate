@@ -5,7 +5,7 @@
 #ifndef CPP_BACKEND_BOILERPLATE_SERVICE_ERROR_HPP
 #define CPP_BACKEND_BOILERPLATE_SERVICE_ERROR_HPP
 
-#include "stdafx.h"
+#include "pch.hpp"
 #include <json/json.h>
 
 namespace ServiceError {

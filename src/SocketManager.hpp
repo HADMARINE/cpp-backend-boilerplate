@@ -1,15 +1,15 @@
 #pragma once
-#include "stdafx.h"
-#include <vector>
+#include "Assets.hpp"
+#include "pch.hpp"
 #include "restbed.hpp"
-#include <string>
-#include <openssl/sha.h>
-#include <openssl/hmac.h>
-#include <openssl/evp.h>
+#include "service_error.hpp"
 #include <openssl/bio.h>
 #include <openssl/buffer.h>
-#include "service_error.hpp"
-#include "Assets.hpp"
+#include <openssl/evp.h>
+#include <openssl/hmac.h>
+#include <openssl/sha.h>
+#include <string>
+#include <vector>
 
 
 namespace Socket{
