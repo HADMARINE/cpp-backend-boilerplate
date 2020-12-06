@@ -9,12 +9,12 @@ add_executable(
     main
     src
     src/main.cpp
-    src/util/CLogger.cpp
-    src/util/Parser.cpp
+    src/core/util/CLogger.cpp
+    src/core/util/Parser.cpp
     src/http_code.hpp
     src/GlobalPrefences.hpp
     src/restbed.hpp
-    src/stdafx.h
+    src/pch.hpp
     src/targetver.h
     src/core/rest/REST_functions.cpp
     src/core/rest/REST_Request.cpp
@@ -24,56 +24,30 @@ add_executable(
     src/core/socket/SocketCollector.cpp
     src/SocketManager.hpp
     src/exec/testdir.cpp
-    src/util/Assets.cpp
+    src/core/util/Assets.cpp
     src/Assets.hpp
     src/service_error.hpp
-    src/util/service_error.cpp
+    src/core/util/service_error.cpp
     src/core/socket/SOCKET_Request.cpp
     src/core/socket/SOCKET_Response.cpp
     src/exec/testSocket.cpp
-)
+    src/core/util/Jwt.cpp src/core/util/Encrypt.cpp src/models.hpp src/core/models/models_data.cpp)
 
 find_library(
     LIBRESTBED
     NAMES librestbed.a
-    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
     REQUIRED
 )
+target_link_libraries(main PRIVATE ${LIBRESTBED})
 
-find_library(
-    LIBJSONCPP
-    NAMES libjsoncpp.a
-    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
-    REQUIRED
-)
+find_package(OpenSSL REQUIRED)
+target_link_libraries(main PRIVATE OpenSSL::SSL OpenSSL::Crypto)
 
-find_library(
-    LIBCRYPTO
-    NAMES libcrypto.a
-    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
-    REQUIRED
-)
+find_package(jsoncpp REQUIRED)
+get_target_property(JSON_INC_PATH jsoncpp_lib INTERFACE_INCLUDE_DIRECTORIES)
+target_include_directories(main PUBLIC ${Jsoncpp_INCLUDE_DIRS})
+target_link_libraries(main PRIVATE jsoncpp_lib)
 
-find_library(
-    LIBSSL
-    NAMES libssl.a
-    HINTS $ENV{VCPKG_INSTALLED_DIR}/lib
-    REQUIRED
-)
+find_path(JWT_CPP_INCLUDE_DIRS "jwt-cpp/base.h")
+target_include_directories(main PRIVATE ${JWT_CPP_INCLUDE_DIRS})
 
-#find_library(
-#        LIBTERM
-#        NAMES libncursesw.a
-#        HINTS /usr/local/Cellar/ncurses/6.2/lib
-#        REQUIRED
-#)
-
-include_directories($ENV{VCPKG_INSTALLED_DIR}/include)
-
-target_link_libraries(main
-                      ${LIBRESTBED}
-                      ${LIBJSONCPP}
-                      ${LIBSSL}
-                      ${LIBCRYPTO}
-#        ${LIBTERM}
-                      )
