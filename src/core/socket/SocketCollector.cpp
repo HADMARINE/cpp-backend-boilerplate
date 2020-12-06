@@ -32,7 +32,7 @@ namespace Socket {
 
   multimap<string, string> build_websocket_handshake_response_headers(const shared_ptr<const Request> &request) {
     auto key = request->get_header("Sec-WebSocket-Key");
-    key.append(GlobalPrefences::WEBSOCKET_KEY);
+    key.append("258EAFA5-E914-47DA-95CA-C5AB0DC85B11");
 
     Byte hash[SHA_DIGEST_LENGTH];
     SHA1(reinterpret_cast<const unsigned char *>(key.data()), key.length(), hash);
@@ -76,27 +76,37 @@ namespace Socket {
       source->close();
     }
 
-    else if (opcode == WebSocketMessage::BINARY_FRAME) {
-      // No support of binary frame
-      auto response = make_shared<WebSocketMessage>(WebSocketMessage::CONNECTION_CLOSE_FRAME, Bytes({10, 03}));
-      source->send(response);
-    }
+//    else if (opcode == WebSocketMessage::BINARY_FRAME) {
+//      // No support of binary frame
+//      CLogger::Debug("BINARY FRAME");
+////      auto response = make_shared<WebSocketMessage>(WebSocketMessage::CONNECTION_CLOSE_FRAME, Bytes({10, 03}));
+//      source->send("BINARY FRAME CURRENTLY UNAVAILABLE");
+//    }
 
-    else if (opcode == WebSocketMessage::TEXT_FRAME) {
+    else if (opcode == WebSocketMessage::TEXT_FRAME || opcode == WebSocketMessage::BINARY_FRAME) {
+      chrono::steady_clock::time_point startTime = chrono::high_resolution_clock::now();
+      REQUEST req(source, message);
+      RESPONSE res(source, message);
+      
       auto response = make_shared<WebSocketMessage>(*message);
       response->set_mask(0);
 
       Json::Value value;
       
       try {
-        value = Parser::parseStringToJson(
+        value = Assets::Parser::parseStringToJson(
             String::format("%.*s", message->get_data().size(), message->get_data().data()));
 
       } catch (exception &e) {
         CLogger::Debug(e.what());
-        source->send(Parser::parseJsonToString(
+        source->send(Assets::Parser::parseJsonToString(
             ServiceError::ErrorToJson(
                 ServiceError::Error::DATA_PARAMETER_INVALID)));
+        chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
+        chrono::duration<double> elapsedTime = stopTime - startTime;
+        CLogger::Debug("SOCK EVENT : %s - %.6fms",
+                       req.getJson()["event"].asString().c_str(),
+                       elapsedTime.count() * 1000);
         return;
       }
 
@@ -104,12 +114,45 @@ namespace Socket {
       
       if (func == nullptr) {
         source->send(
-            Parser::parseJsonToString(
-                ServiceError::ErrorToJson(ServiceError::Error::PAGE_NOT_FOUND)));
+            Assets::Parser::parseJsonToString(
+                ServiceError::ErrorToJson(ServiceError::Error::EVENT_NOT_FOUND)));
+        chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
+        chrono::duration<double> elapsedTime = stopTime - startTime;
+        CLogger::Debug("SOCK EVENT : %s - %.6fms",
+                       req.getJson()["event"].asString().c_str(),
+                       elapsedTime.count() * 1000);
         return;
       }
       
-      func(REQUEST(source, message), RESPONSE(source, message));
+      [&]() {
+        
+        if(!GlobalPreferences::DEBUG) {
+          try{
+            func(req, res);
+          } catch(exception&) {
+            res.emit_json(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR));
+          } catch(ServiceError::Error& e) {
+            res.emit_json(ServiceError::ErrorToJson(e));
+          }
+        }
+        
+        
+        try{
+          func(req, res);
+        } catch(std::exception& e) {
+          CLogger::Error("SOCK ERR : %s ( INTERNAL_SERVER_ERROR )", e.what());
+          res.emit_json(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR));
+        } catch(ServiceError::Error& e) {
+          auto err = ServiceError::ErrorToJson(e);
+          CLogger::Error("SOCK ERR : %s ( %s )", err["message"].asString().c_str(), err["code"].asString().c_str());
+          res.emit_json(err);
+        }
+      }();
+      chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
+      chrono::duration<double> elapsedTime = stopTime - startTime;
+      CLogger::Debug("SOCK EVENT : %s - %.6fms",
+                     req.getJson()["event"].asString().c_str(),
+                     elapsedTime.count() * 1000);
     }
   }
 
@@ -138,9 +181,9 @@ namespace Socket {
 
   bool SocketManager::Initialize(Service &service) {
     shared_ptr<Resource> resource = make_shared<Resource>();
-    resource->set_path(GlobalPrefences::WEBSOCKET_PATH);
+    resource->set_path(GlobalPreferences::WEBSOCKET_PATH);
 
-    resource->set_method_handler(Rest::parse_method_str(Rest::REST_METHODS::GET), [=](shared_ptr<Session> session) {
+    resource->set_method_handler(Rest::parse_method_str(Rest::REST_METHODS::GET), [=](const shared_ptr<Session>& session) {
       const auto request = session->get_request();
       const auto connection_header = request->get_header("connection", String::lowercase);
 
@@ -149,13 +192,13 @@ namespace Socket {
 
           const auto headers = build_websocket_handshake_response_headers(request);
 
-          session->upgrade(SWITCHING_PROTOCOLS, headers, [](const shared_ptr<WebSocket> socket) {
+          session->upgrade(SWITCHING_PROTOCOLS, headers, [](const shared_ptr<WebSocket>& socket) {
             if (socket->is_open()) {
               socket->set_close_handler(closeHandler);
               socket->set_error_handler(errorHandler);
               socket->set_message_handler(messageHandler);
 
-              socket->send("CONNECTED", [](const shared_ptr<WebSocket> socket) {
+              socket->send("CONNECTED", [](const shared_ptr<WebSocket>& socket) {
                 const auto key = socket->get_key();
                 SocketManager::sockets.insert(make_pair(key, socket));
                 CLogger::Debug("SocketClient Connected - id : %s", key.data());

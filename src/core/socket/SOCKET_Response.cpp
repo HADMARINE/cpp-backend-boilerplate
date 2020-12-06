@@ -3,6 +3,7 @@
 //
 
 #include "../../SocketManager.hpp"
+#include "../../RestManager.hpp"
 
 using namespace std;
 using namespace Socket;
@@ -17,7 +18,12 @@ void RESPONSE::emit_str(std::string message) {
 }
 
 void RESPONSE::emit_json(Json::Value message) {
-  source->send(Parser::parseJsonToString(message));
+  Json::Value root;
+  
+  root["result"] = true;
+  root["data"] = message;
+  
+  source->send(Assets::Parser::parseJsonToString(message));
 }
 
 void RESPONSE::emit_to_str(string id, string message) {
@@ -29,5 +35,5 @@ void RESPONSE::emit_to_str(string id, string message) {
 void RESPONSE::emit_to_json(string id, Json::Value message) {
   CLogger::Debug("emit_to Test needed");
   source->set_key(id);
-  source->send(Parser::parseJsonToString(message));
+  source->send(Assets::Parser::parseJsonToString(message));
 }
