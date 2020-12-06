@@ -1,20 +1,20 @@
 #pragma once
 #include "Assets.hpp"
 #include "http_code.hpp"
+#include "pch.hpp"
 #include "restbed.hpp"
-#include "stdafx.h"
+#include "service_error.hpp"
 #include "json/json.h"
 #include <chrono>
-#include "Parser.hpp"
-#include "service_error.hpp"
 
-using namespace std;
-using namespace restbed;
 
 namespace Rest {
+  
+  using namespace std;
+  using namespace restbed;
+  
   enum class REST_FLAGS {
     REST_CHECK_FLAGS,
-    IS_ABSOLUTE,
     VERIFY_JWT_ADMIN,
     VERIFY_JWT_USER
   };
@@ -53,12 +53,29 @@ namespace Rest {
 
     string getBody();
     Json::Value getJson();
-    template<typename T> T getHeader(string, T);
-    template<typename T> T getQuery(string, T);
-    template<typename T> T getParameter(string, T);
+    
+    string getHeader(const string& header, const string& default_value = "") {
+      const shared_ptr<const Request> request = this->session->get_request();
+      return request->get_header(header, default_value);
+    }
+  
+    template<typename T>
+    T getQuery(string query, T default_value) {
+      const shared_ptr<const Request> request = this->session->get_request();
+      return request->get_query_parameter(query, default_value);
+    }
+  
+    template<typename T>
+    T getParameter(string param, T default_value) {
+      auto request = this->session->get_request();
+      return request->get_path_parameter(param, default_value);
+    }
   
     shared_ptr<Session> getRawSession();
-
+  
+    struct _subData{
+      Assets::Jwt::TokenValue tokenValue;
+    } subData;
   private:
     shared_ptr<Session> session;
   };
@@ -69,6 +86,7 @@ namespace Rest {
     ~RESPONSE();
 
     void send(HTTP_CODE, const string&);
+    
     template<typename T>
     void json(HTTP_CODE code, T& data) {
       auto request = this->session->get_request();
@@ -87,9 +105,7 @@ namespace Rest {
       for (auto & c: http_message) c = toupper(c);
     
       returnValue["code"] = http_message;
-    
-    
-      string str_data = Parser::parseJsonToString(std::move(returnValue));
+      string str_data = Assets::Parser::parseJsonToString(returnValue);
     
       headers.insert(pair<string, string>("Content-Length",
                                           to_string(strlen(str_data.c_str()))));
@@ -98,9 +114,10 @@ namespace Rest {
     void setHeader(string, string);
 
     shared_ptr<Session> getRawSession();
-
+    
   private:
     shared_ptr<Session> session;
+    
   };
 
   class RestManager {
@@ -127,8 +144,8 @@ namespace Rest {
   };
 
   function<void(shared_ptr<Session>)> WRAP_FUNC(function<void(REQUEST, RESPONSE)>,
-                                                initializer_list<REST_FLAGS>, REST_METHODS, string);
-
+                                                initializer_list<REST_FLAGS>, REST_METHODS, const string&);
+  void middlewareHandler(REQUEST&, RESPONSE&, const initializer_list<REST_FLAGS>&);
   string parse_method_str(REST_METHODS);
 
 }// namespace Rest
