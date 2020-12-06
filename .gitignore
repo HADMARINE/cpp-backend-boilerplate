@@ -330,6 +330,8 @@ ASALocalRun/
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
 
+*.cbp
+
 # MFractors (Xamarin productivity tool) working folder
 .mfractor/
 
@@ -342,3 +344,6 @@ healthchecksdb
 # CMAKE dev
 cmake-build-debug/
 CMakeFiles/
+CMakeCache.txt
+Makefile
+.DS_Store
