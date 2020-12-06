@@ -346,4 +346,5 @@ cmake-build-debug/
 CMakeFiles/
 CMakeCache.txt
 Makefile
+main
 .DS_Store
