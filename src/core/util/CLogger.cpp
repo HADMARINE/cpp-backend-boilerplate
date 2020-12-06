@@ -1,16 +1,17 @@
-#include "../CLogger.hpp"
+//
+// Created by HADMARINE on 2020/09/20.
+//
 
+#include "../../CLogger.hpp"
 #define MAX_BUF_SIZE 4096
 
+using namespace std;
 
 #if !(defined(_WIN32) || defined(_WIN64))
 //#include <unistd.h>
 //#include <term.h>
 //#include <curses.h>
 #endif
-
-using namespace std;
-
 
 bool CLogger::isUsing = false;
 
@@ -32,35 +33,35 @@ string extSmNum(int num) {
   return buf;
 }
 
-void SetConsoleTextColor(int foreground, int background) {
+void SetConsoleTextColor(CLogger::COLOR foreground, CLogger::COLOR background) {
 #if defined(_WIN32) || defined(_WIN64)
   SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
-                          foreground + background * 16);
+                          (int)foreground + (int)background * 16);
 #endif
 }
 
-void SetConsoleTextColor(void) {
+void SetConsoleTextColor() {
 #if defined(_WIN32) || defined(_WIN64)
   SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
-                          LIGHTGRAY + BLACK * 16);
+                          (int)CLogger::COLOR::LIGHTGRAY + (int)CLogger::COLOR::BLACK * 16);
 #endif
 }
 
 void SetConsoleTextColor(string type) {
   if (type == "time") {
-    SetConsoleTextColor(DARKGRAY, BLACK);
+    SetConsoleTextColor(CLogger::COLOR::DARKGRAY, CLogger::COLOR::BLACK);
   } else if (type == "info") {
-    SetConsoleTextColor(BLACK, LIGHTGRAY);
+    SetConsoleTextColor(CLogger::COLOR::BLACK, CLogger::COLOR::LIGHTGRAY);
   } else if (type == "info_i") {
-    SetConsoleTextColor(LIGHTGRAY, BLACK);
+    SetConsoleTextColor(CLogger::COLOR::LIGHTGRAY, CLogger::COLOR::BLACK);
   } else if (type == "error") {
-    SetConsoleTextColor(BLACK, RED);
+    SetConsoleTextColor(CLogger::COLOR::BLACK, CLogger::COLOR::RED);
   } else if (type == "error_i") {
-    SetConsoleTextColor(RED, BLACK);
+    SetConsoleTextColor(CLogger::COLOR::RED, CLogger::COLOR::BLACK);
   } else if (type == "debug") {
-    SetConsoleTextColor(BLACK, CYAN);
+    SetConsoleTextColor(CLogger::COLOR::BLACK, CLogger::COLOR::CYAN);
   } else if (type == "debug_i") {
-    SetConsoleTextColor(CYAN, BLACK);
+    SetConsoleTextColor(CLogger::COLOR::CYAN, CLogger::COLOR::BLACK);
   } else {
     SetConsoleTextColor();
   }
@@ -79,7 +80,7 @@ string CLogger::getTimeNow() {
     CLogger::Error("CLogger::getTimeNow returned error : time get failed");
     return "TIME_SHOW_ERROR";
   }
-
+  
   return "[" + extSmNum((&pLocal)->tm_year + 1900) + "-" +
          extSmNum((&pLocal)->tm_mon + 1) + "-" +
          extSmNum((&pLocal)->tm_mday) + " " + extSmNum((&pLocal)->tm_hour) + ":" +
@@ -90,10 +91,10 @@ void CLogger::RawLogger(const char *mes, ...) {
   while (CLogger::isUsing)
     ;
   CLogger::isUsing = true;
-
+  
   va_list ap;
   char buf[MAX_BUF_SIZE];
-
+  
   va_start(ap, mes);
   vsprintf(buf, mes, ap);
   va_end(ap);
@@ -113,10 +114,10 @@ void CLogger::Info(const char *mes, ...) {
   while (CLogger::isUsing)
     ;
   CLogger::isUsing = true;
-
+  
   va_list ap;
   char buf[MAX_BUF_SIZE];
-
+  
   va_start(ap, mes);
   vsprintf(buf, mes, ap);
   va_end(ap);
@@ -124,7 +125,7 @@ void CLogger::Info(const char *mes, ...) {
 #if defined(_WIN32) || defined(_WIN64)
   SetConsoleTextColor("time");
   cout << CLogger::getTimeNow();
-  SetConsoleTextColor(BLACK, LIGHTGRAY);
+  SetConsoleTextColor(CLogger::COLOR::BLACK, CLogger::COLOR::LIGHTGRAY);
   cout << " INFO ";
   SetConsoleTextColor();
   cout << " " << buf << endl;
@@ -134,14 +135,39 @@ void CLogger::Info(const char *mes, ...) {
   CLogger::isUsing = false;
 }
 
+void CLogger::Success(const char *mes, ...) {
+  while (CLogger::isUsing)
+    ;
+  CLogger::isUsing = true;
+  
+  va_list ap;
+  char buf[MAX_BUF_SIZE];
+  
+  va_start(ap, mes);
+  vsprintf(buf, mes, ap);
+  va_end(ap);
+
+#if defined(_WIN32) || defined(_WIN64)
+  SetConsoleTextColor("time");
+  cout << CLogger::getTimeNow();
+  SetConsoleTextColor(CLogger::COLOR::BLACK, CLogger::COLOR::LIGHTGRAY);
+  cout << " INFO ";
+  SetConsoleTextColor();
+  cout << " " << buf << endl;
+#else
+  fprintf(stdout, "%s\x1b[42;30m SUCC \x1b[40;32m %s\x1b[0m\n", CLogger::getTimeNow().c_str(), buf);
+#endif
+  CLogger::isUsing = false;
+}
+
 void CLogger::ErrorWithDialog(const char *mes, ...) {
   while (CLogger::isUsing)
     ;
   CLogger::isUsing = true;
-
+  
   va_list ap;
   char buf[MAX_BUF_SIZE];
-
+  
   va_start(ap, mes);
   vsprintf(buf, mes, ap);
   va_end(ap);
@@ -162,10 +188,10 @@ void CLogger::ErrorWithDialog(const char *mes, ...) {
 #if defined(_WIN32) || defined(_WIN64)
   wchar_t application_name[128] = L"", content[4096] = L"";
   size_t application_name_size, content_size;
-  mbstowcs_s(&application_name_size, application_name, 128, APPLICATION_NAME, 128);
-  mbstowcs_s(&content_size, content, 4096, mes.c_str(), 4096);
-  MessageBox(NULL, LPCWSTR(content),
-             LPCWSTR(application_name), MB_OK);
+  mbstowcs_s(&application_name_size, application_name, 128, GlobalPreferences::APPLICATION_NAME, 128);
+  mbstowcs_s(&content_size, content, 4096, mes, 4096);
+  MessageBox(NULL, reinterpret_cast<LPCSTR>(LPCWSTR(content)),
+             reinterpret_cast<LPCSTR>(LPCWSTR(application_name)), MB_OK);
 #else
   CLogger::Debug("CLogger::Error - ErrorStackDialogue is avaliable only in WINDOWS");
 #endif
@@ -176,10 +202,10 @@ void CLogger::Error(const char *mes, ...) {
   while (CLogger::isUsing)
     ;
   CLogger::isUsing = true;
-
+  
   va_list ap;
   char buf[MAX_BUF_SIZE];
-
+  
   va_start(ap, mes);
   vsprintf(buf, mes, ap);
   va_end(ap);
@@ -200,17 +226,17 @@ void CLogger::Error(const char *mes, ...) {
 }
 
 void CLogger::Debug(const char *mes, ...) {
-  if (!GlobalPrefences::ISDEBUGMODE) {
+  if (!GlobalPreferences::DEBUG) {
     return;
   }
-
+  
   while (CLogger::isUsing)
     ;
   CLogger::isUsing = true;
-
+  
   va_list ap;
   char buf[MAX_BUF_SIZE];
-
+  
   va_start(ap, mes);
   vsprintf(buf, mes, ap);
   va_end(ap);
@@ -226,7 +252,7 @@ void CLogger::Debug(const char *mes, ...) {
 #else
   fprintf(stdout, "%s\x1b[30;46m DEBG \x1b[36;40m %s\x1b[0m\n", CLogger::getTimeNow().c_str(), buf);
 #endif
-
+  
   CLogger::isUsing = false;
 }
 

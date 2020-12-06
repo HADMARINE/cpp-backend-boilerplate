@@ -2,13 +2,15 @@
 // Created by HADMARINE on 2020/09/19.
 //
 
-#include "../service_error.hpp"
+#include "../../service_error.hpp"
 
 namespace ServiceError {
   ErrorValue getErrorValue(Error e) {
     switch(e){
       case Error::PAGE_NOT_FOUND:
         return ErrorValue{404, "Page Not Found", "PAGE_NOT_FOUND"};
+      case Error::EVENT_NOT_FOUND:
+        return ErrorValue{404, "Event Not Found", "EVENT_NOT_FOUND"};
       case Error::INTERNAL_SERVER_ERROR:
         return ErrorValue{500, "Internal Server Error", "INTERNAL_SERVER_ERROR"};
       case Error::TOO_MANY_REQUESTS:
