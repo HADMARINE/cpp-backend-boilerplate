@@ -32,20 +32,21 @@ namespace Rest {
   function<void(shared_ptr<Session>)>
   WRAP_FUNC(function<void(REQUEST, RESPONSE)> func,
             initializer_list<REST_FLAGS> flags,
-            REST_METHODS method, string dir) {
+            REST_METHODS method, const string& dir) {
     
     
-    if (!GlobalPrefences::ISDEBUGMODE) {
+    if (!GlobalPreferences::DEBUG) {
       return [=](shared_ptr<Session> session) {
         REQUEST req(session);
         RESPONSE res(session);
         try{
+          middlewareHandler(req, res, flags);
           return func(req, res);
         } catch(exception &e) {
-          res.send(HTTP_CODE::INTERNAL_SERVER_ERROR, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
+          res.send(HTTP_CODE::INTERNAL_SERVER_ERROR, Assets::Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
         } catch (ServiceError::Error e) {
           auto v = ServiceError::ErrorToJson(e);
-          res.send((HTTP_CODE)v["status"].as<int>(), Parser::parseJsonToString(v));
+          res.send((HTTP_CODE)v["status"].as<int>(), Assets::Parser::parseJsonToString(v));
         }
       };
     }
@@ -57,6 +58,7 @@ namespace Rest {
       REQUEST req(session);
       RESPONSE res(session);
       try {
+        middlewareHandler(req, res, flags);
         func(req, res);
         chrono::steady_clock::time_point stopTime = chrono::high_resolution_clock::now();
         chrono::duration<double> elapsedTime = stopTime - startTime;
@@ -64,15 +66,42 @@ namespace Rest {
                        method_string.c_str(), dir.c_str(),
                        elapsedTime.count() * 1000);
       } catch(exception &e) {
-        res.send(HTTP_CODE::INTERNAL_SERVER_ERROR, Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
+        res.send(HTTP_CODE::INTERNAL_SERVER_ERROR, Assets::Parser::parseJsonToString(ServiceError::ErrorToJson(ServiceError::Error::INTERNAL_SERVER_ERROR)));
       } catch (ServiceError::Error &e) {
         ServiceError::ErrorValue v = ServiceError::getErrorValue(e);
-        CLogger::Debug("REST ERR : %s %s - %d %s",
+        CLogger::Error("REST ERR : %s %s - %d %s",
                        method_string.c_str(), dir.c_str(),
                        v.status, v.message.c_str());
-        res.send((HTTP_CODE)v.status, Parser::parseJsonToString(ServiceError::ErrorToJson(e)));
+        res.send((HTTP_CODE)v.status, Assets::Parser::parseJsonToString(ServiceError::ErrorToJson(e)));
       }
     };
+  }
+  
+  void middlewareHandler(REQUEST &req, RESPONSE &res,
+                         const initializer_list<REST_FLAGS>& flags) {
+    for(auto flag : flags) {
+      switch(flag) {
+        case REST_FLAGS::VERIFY_JWT_USER: {
+          auto authToken = req.getHeader("Authorization", "");
+          if (authToken.empty()) {
+            throw ServiceError::Error::AUTH_TOKEN_INVALID;
+          }
+          req.subData.tokenValue = Assets::Jwt::verify(authToken);
+          req.subData.tokenValue.payload["authority"];
+          // TODO : Specify user
+          break;
+        }
+        case REST_FLAGS::VERIFY_JWT_ADMIN: {
+          break;
+        }
+        case REST_FLAGS::REST_CHECK_FLAGS: {
+          break;
+        }
+        default:
+          break;
+
+      }
+    }
   }
 
   int parse_http_code_to_int(HTTP_CODE code) {
